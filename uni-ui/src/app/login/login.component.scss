@@ -1,0 +1,167 @@
+/* General Styles */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Login Page Layout */
+.login-page {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Center vertically */
+  padding: 20px;
+  height: 100vh; /* Full height of the viewport */
+}
+
+/* Left and Right Sections */
+.left-section, .right-section {
+  width: 33%;
+  text-align: center;
+  background: inherit; /* Use the same background as the parent */
+}
+
+.logo {
+  max-width: 100%;
+  height: auto;
+}
+
+h3 {
+  color: #333;
+}
+
+/* Center Section */
+.center-section {
+  width: 34%;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Center vertically within this section */
+  background: inherit; /* Use the same background as the parent */
+}
+
+.dialogue-box {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  padding: 30px;
+  width: 100%;
+}
+
+/* Company Logo */
+.CompanyLogo {
+  max-width: 100px; /* Adjust as needed */
+  display: block;
+  margin: 0 auto 20px auto;
+}
+
+.input-field {
+  display: flex;
+  align-items: center; /* Align items horizontally in the center */
+  margin-bottom: 1rem; /* Space between input fields */
+}
+
+.input-field label {
+  width: 120px; /* Set a fixed width for labels */
+  margin-right: 1rem; /* Space between label and input */
+}
+
+.input-field input,
+.p-dropdown {
+  width: 410px; /* Set a fixed width for input and dropdown */
+}
+
+.password-container {
+  display: flex;
+  align-items: center; /* Align toggle with the input */
+}
+
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
+}
+/* Input Field States */
+input:focus {
+  border-color: #007bff; /* Blue for focused state */
+}
+
+input.touched {
+  border-color: #28a745; /* Green when touched */
+}
+
+.password-container {
+  position: relative; /* Positioning context for the icon */
+}
+
+
+
+.toggle-password {
+  position: absolute; /* Absolute position to place inside the input */
+  right: 10px; /* Distance from the right */
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%); /* Adjust to align vertically */
+  cursor: pointer; /* Show pointer on hover */
+  font-size: 1.2em; /* Adjust size of the icon */
+  color: #555; /* Color of the icon */
+}
+
+/* Button Styles */
+.login-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .login-page {
+      flex-direction: column; /* Stack the sections */
+  }
+
+  .left-section, .right-section {
+      width: 100%;
+      margin-bottom: 20px;
+  }
+
+  .center-section {
+      width: 100%;
+  }
+}
+
+/* Style for the ERP title */
+.erp-title {
+  text-align: center; /* Center the text */
+  font-size: 3em; /* Adjust size as needed */
+  background: linear-gradient(45deg, #ff007f, #7f00ff, #00c6ff, #ff7f00); /* Multicolor gradient */
+  -webkit-background-clip: text; /* Clip the background to the text */
+  -webkit-text-fill-color: transparent; /* Make the text transparent */
+  animation: gradient-animation 5s ease infinite; /* Optional: animation for the gradient */
+}
+.forgot-password {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: right;
+}
+
+.forgot-password a {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 0.9em;
+}
+
+.forgot-password a:hover {
+  text-decoration: underline;
+}
