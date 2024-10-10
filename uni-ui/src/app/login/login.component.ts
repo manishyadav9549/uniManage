@@ -1,7 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-// import { LoginService } from '../services/login.service';
+import { School } from '../interfaces/school';
+import { LoginService } from './services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -23,27 +24,43 @@ export class LoginComponent implements OnInit {
     { label: 'Hospital', value: 'hospital' },
     { label: 'Restaurant', value: 'restaurant'}
   ];
-  constructor( private router: Router/*, private httpLogin: LoginService*/, private messageService: MessageService) {
+  data: any;
+  constructor( private router: Router, private loginService: LoginService, private messageService: MessageService) {
   }
 
   ngOnInit(): void {}
-  login(username: any, password: any, selectedUserType: any){
+  login(username: any, password: any){
     this.passwordInput.nativeElement.blur();
     this.isLoading = true;
     this.username = username;
     this.password = password;
-    this.selectedUserType = selectedUserType;
     if (this.username == '' || this.password == '' || this.selectedUserType )
     {}
     let loginData = {
       'username': this.username,
-      'password': this.password,
-      'userType': this.selectedUserType
+      'password': this.password
     }
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 1000);
     // this.httpLogin.validateUser(loginData).subscribe((state: School.loginForm) =>{
+      // if(state.data){
+      //   console.log(state.data);
+      //   this.isLoading = false;
+      // }
+
+    this.loginService.validateUser(loginData).subscribe({
+      next:(response) =>{
+        this.data = response
+      },
+      error: (error) => {
+        console.error('Error fetching data: ', error);
+      },
+      complete: () => {
+        console.log('Data stream completed');
+      }
+    });
+    // setTimeout(() => {
+    //   this.isLoading = false;
+    // }, 1000);
+
       switch (this.selectedUserType) {
         case 'school':
           if (isNaN(this.username))

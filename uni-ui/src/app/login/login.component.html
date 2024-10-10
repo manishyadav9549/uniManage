@@ -23,23 +23,17 @@
           <label><b>Password</b></label>
           <div class="password-container">
             <input type="{{ showPassword ? 'text' : 'password' }}" [(ngModel)]="password" pInputText required
-            #passwordInput (keydown.enter)="login(username, password,selectedUserType)" />
+            #passwordInput (keydown.enter)="login(username, password)" />
             <div class="toggle-password" (click)="togglePassword()">
               {{ showPassword ? '👁️' : '👁️‍🗨️' }}
             </div>
           </div>
         </div>
-        
-        <div class="input-field">
-          <label><b>User Type</b></label>
-          <p-dropdown [options]="userType" [(ngModel)]="selectedUserType" placeholder="Select Business Type"></p-dropdown>
-        </div>
-        
         <div class="forgot-password">
           <a href="#" (click)="forgotPassword()">Forgot Password?</a>
         </div>
       </div>
-      <button class="login-button" (click)="login(username, password, selectedUserType)">LOGIN</button>
+      <button class="login-button" (click)="login(username, password)">LOGIN</button>
       <app-loaderr [isLoading]="isLoading"></app-loaderr>
     </div>
   </div>

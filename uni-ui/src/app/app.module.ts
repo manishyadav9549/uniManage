@@ -22,6 +22,7 @@ import { LoaderrComponent } from './loaderr/loaderr.component';
 import { HospitalHomeScreenComponent } from './hospital/hospital-home-screen/hospital-home-screen.component';
 import { RestaurantHomeScreenComponent } from './restaurant/restaurant-home-screen/restaurant-home-screen.component';
 import { MessageService } from 'primeng/api';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +48,8 @@ import { MessageService } from 'primeng/api';
     ToolbarModule,
     PanelModule,
     ReactiveFormsModule,
-    DropdownModule
+    DropdownModule,
+    HttpClientModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]
