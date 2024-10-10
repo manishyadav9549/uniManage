@@ -49,6 +49,20 @@ export class LoginComponent implements OnInit {
     this.loginService.validateUser(loginData).subscribe({
       next:(response) =>{
         this.data = response
+        this.isLoading = false;
+        switch (this.data.userType) {
+          case 'school':
+            if (isNaN(this.username))
+              this.router.navigate(['/school-admin']);
+            else
+             this.router.navigate(['/student']);
+            break;
+          case 'hospital':
+            this.router.navigate(['/hospital']);
+            break;
+          case 'restaurant':
+            this.router.navigate(['/restaurant'])
+        }
       },
       error: (error) => {
         console.error('Error fetching data: ', error);
@@ -61,19 +75,7 @@ export class LoginComponent implements OnInit {
     //   this.isLoading = false;
     // }, 1000);
 
-      switch (this.selectedUserType) {
-        case 'school':
-          if (isNaN(this.username))
-            this.router.navigate(['/school-admin']);
-          else
-           this.router.navigate(['/student']);
-          break;
-        case 'hospital':
-          this.router.navigate(['/hospital']);
-          break;
-        case 'restaurant':
-          this.router.navigate(['/restaurant'])
-      }
+      
     // });
       
   }
