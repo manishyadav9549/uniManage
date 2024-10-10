@@ -5,6 +5,8 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/uni-backend/erp-backend/pom.xml" />
+        <option value="$PROJECT_DIR$/uni-backend/pom.xml" />
+        <option value="$PROJECT_DIR$/uni-backend/user-service/pom.xml" />
       </list>
     </option>
   </component>
