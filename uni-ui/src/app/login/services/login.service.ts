@@ -7,12 +7,12 @@ import { School } from 'src/app/interfaces/school';
   providedIn: 'root'
 })
 export class LoginService {
-  basePath: string = "localhost:8081"
+  basePath: string = "localhost:5431"
 
   constructor(private http: HttpClient) { }
 
   validateUser(loginData: any): Observable<any> {
-    let url = 'http://localhost:8081/uniLogin/user'
+    let url = this.basePath + '/uniLogin/user'
    
     return this.http.post(url,loginData);
     }
