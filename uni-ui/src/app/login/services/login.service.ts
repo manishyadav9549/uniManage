@@ -7,7 +7,7 @@ import { School } from 'src/app/interfaces/school';
   providedIn: 'root'
 })
 export class LoginService {
-  basePath: string = "localhost:5431"
+  basePath: string = "http://localhost:2126"
 
   constructor(private http: HttpClient) { }
 

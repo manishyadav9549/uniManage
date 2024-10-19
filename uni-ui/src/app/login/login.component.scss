@@ -10,40 +10,29 @@ body {
   justify-content: space-between;
   align-items: center; /* Center vertically */
   padding: 20px;
-  height: 100vh; /* Full height of the viewport */
+  height: 95vh; /* Full height of the viewport */
 }
 
-/* Left and Right Sections */
-.left-section, .right-section {
-  width: 33%;
-  text-align: center;
-  background: inherit; /* Use the same background as the parent */
-}
-
-.logo {
-  max-width: 100%;
-  height: auto;
-}
-
-h3 {
-  color: #333;
-}
 
 /* Center Section */
 .center-section {
   width: 34%;
+  margin-left: 33%;
+  margin-right: 33%;
+  margin-top: 33%;
+  margin-bottom: 33%;
   display: flex;
   justify-content: center;
-  align-items: center; /* Center vertically within this section */
-  background: inherit; /* Use the same background as the parent */
+  align-items: center; 
+  background: inherit; 
 }
 
 .dialogue-box {
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 20px rgba(235, 15, 99, 0.2);
   padding: 30px;
-  width: 100%;
+  width: 95vw;
 }
 
 /* Company Logo */
@@ -64,9 +53,8 @@ h3 {
   margin-right: 1rem; /* Space between label and input */
 }
 
-.input-field input,
-.p-dropdown {
-  width: 410px; /* Set a fixed width for input and dropdown */
+.input-field input{
+  width: 410px; 
 }
 
 .password-container {
@@ -77,7 +65,7 @@ h3 {
 
 input[type="text"],
 input[type="password"] {
-  width: 100%;
+  // width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;

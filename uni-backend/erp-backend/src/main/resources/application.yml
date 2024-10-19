@@ -3,4 +3,4 @@ spring:
     name: erp-backend
 
 server:
-  port: 5432
+  port: 2126
