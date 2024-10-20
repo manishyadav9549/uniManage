@@ -7,8 +7,8 @@ import { HospitalHomeScreenComponent } from './hospital/hospital-home-screen/hos
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'student', component: StudentHomeScreenComponent },
-  { path: 'hospital', component: HospitalHomeScreenComponent},
+  { path: 'student', loadChildren: () => import('./school/student-home-screen/student-home-screen.module').then(m => m.StudentHomeScreenModule) },
+  { path: 'hospital', loadChildren: () => import('./hospital/hospital-home-screen/hospital-home-screen.module').then(m => m.HospitalHomeScreenModule) },
   { path: 'restaurant', loadChildren: () => import('./restaurant/restaurant-home-screen/restaurant-home-screen.module').then(m => m.RestaurantHomeScreenModule) },
   { path: 'school-admin', loadChildren: () => import('./school/admin-home-screen/admin-home-screen.module').then(m => m.AdminHomeScreenModule) }
 

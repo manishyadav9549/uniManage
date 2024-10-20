@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { MenubarModule } from 'primeng/menubar';
-import { LoginComponent } from './login/login.component';
 import { MessagesModule } from 'primeng/messages'; 
 import { MessageModule } from 'primeng/message'; 
 import { DialogModule } from 'primeng/dialog';
@@ -26,7 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
+    // LoginComponent,
     StudentHomeScreenComponent,
     AdminHomeScreenComponent,
     LoaderrComponent,
