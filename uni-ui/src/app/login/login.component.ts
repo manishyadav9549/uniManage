@@ -28,11 +28,13 @@ export class LoginComponent implements OnInit {
     this.username = username;
     this.password = password;
     if (this.username == 'manish' && this.password == 'manish'){
-      this.router.navigate(['/admin']);
+      this.router.navigate(['/su-admin']);
       return;
     }
-    if (this.username == '' || this.password == '')
-    {}
+    if (this.username == '' || this.password == ''){
+      this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter Username and Password.'})
+      return;
+    }
     let loginData = {
       'username': this.username,
       'password': this.password

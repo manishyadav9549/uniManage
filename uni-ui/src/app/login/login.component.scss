@@ -54,7 +54,7 @@ body {
 }
 
 .input-field input{
-  width: 410px; 
+  width: 25vw; 
 }
 
 .password-container {
@@ -133,7 +133,8 @@ input.touched {
 .erp-title {
   text-align: center; /* Center the text */
   font-size: 3em; /* Adjust size as needed */
-  background: linear-gradient(45deg, #ff007f, #7f00ff, #00c6ff, #ff7f00); /* Multicolor gradient */
+  padding-bottom: 7px;
+  background: linear-gradient(45deg, #f04e9f, #9b65ce, #a5bd51, #d74bdf); /* Multicolor gradient */
   -webkit-background-clip: text; /* Clip the background to the text */
   -webkit-text-fill-color: transparent; /* Make the text transparent */
   animation: gradient-animation 5s ease infinite; /* Optional: animation for the gradient */

@@ -1,56 +1,36 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { MenubarModule } from 'primeng/menubar';
-import { MessagesModule } from 'primeng/messages'; 
 import { MessageModule } from 'primeng/message'; 
-import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
-import { StudentHomeScreenComponent } from './school/student-home-screen/student-home-screen.component';
-import { ToolbarModule } from 'primeng/toolbar';
-import { AdminHomeScreenComponent } from './school/admin-home-screen/admin-home-screen.component';
-import { PanelModule } from 'primeng/panel';
-import { ReactiveFormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
-import { LoaderrComponent } from './loaderr/loaderr.component';
-import { HospitalHomeScreenComponent } from './hospital/hospital-home-screen/hospital-home-screen.component';
-import { RestaurantHomeScreenComponent } from './restaurant/restaurant-home-screen/restaurant-home-screen.component';
-import { MessageService } from 'primeng/api';
+import { LoaderrComponent } from './commons/loaderr/loaderr.component';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginModule } from './login/login.module';
+import { StudentHomeScreenModule } from './school/student-home-screen/student-home-screen.module';
+import { AdminHomeScreenModule } from './school/admin-home-screen/admin-home-screen.module';
+import { SuAdminModule } from './su-admin/su-admin.module';
+import { HospitalHomeScreenModule } from './hospital/hospital-home-screen/hospital-home-screen.module';
 @NgModule({
-  declarations: [
-    AppComponent,
-    // LoginComponent,
-    StudentHomeScreenComponent,
-    AdminHomeScreenComponent,
-    LoaderrComponent,
-    HospitalHomeScreenComponent,
-    RestaurantHomeScreenComponent
+  declarations: [AppComponent,
+    LoaderrComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    CommonModule,
-    FormsModule,
-    ButtonModule,
-    MenubarModule,
-    MessagesModule,
-    DialogModule,
+    LoginModule,
+    StudentHomeScreenModule,
+    AdminHomeScreenModule,
+    SuAdminModule,
+    HospitalHomeScreenModule,
     MessageModule,
     ToastModule,
-    ToolbarModule,
-    PanelModule,
-    ReactiveFormsModule,
-    DropdownModule,
     HttpClientModule
   ],
-  providers: [MessageService],
+  providers: [MessageService,ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
