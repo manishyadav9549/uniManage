@@ -1,10 +1,20 @@
 package com.erp.erp_backend.controller;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.erp.erp_backend.model.User;
+import com.erp.erp_backend.services.UserService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -12,41 +22,45 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RequestMapping("/uniLogin")
 public class UserController {
 
+    @Autowired
+    private UserService userService;
+
     @PostMapping("/user")
-    public String signIn(@RequestBody String loginData) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            JsonNode jsonNode = objectMapper.readTree(loginData);
-            String userName = jsonNode.get("username").asText();
-            String password = jsonNode.get("password").asText();
-            System.out.println("Username: "+ userName);
-            System.out.println("Password: "+ password);
-            Map<String, Object> jsonObject = new HashMap<>();
-            jsonObject.put("name", "John Doe");
-            jsonObject.put("age", 30);
+    public ArrayList<User> signIn(@RequestBody User loginData) {
+    ArrayList user = userService.getUser(loginData);
+    return user;
+    }
 
-            // Step 2: Add a new value
-            jsonObject.put("city", "New York");
 
-            // Optional: If you need to remove a value
-            // jsonObject.remove("age");
+    @PostMapping("/addUser")
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        System.out.println(user);
+        User newUser = userService.createUser(user);
+        return ResponseEntity.ok(newUser);
+    }
 
-            // Step 3: Convert Map to JSON String
-            String jsonString = objectMapper.writeValueAsString(jsonObject);
-            System.out.println("Updated JSON: " + jsonString);
+    @GetMapping("user/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        return userService.findUserById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 
-            // Logic based on userType
-//            if ("student".equals(userName)) {
-                // Logic to get fetch data regarding username
-                return jsonString;
-//            }
+    @PutMapping("user/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
+        User updatedUser = userService.updateUser(id, userDetails);
+        return ResponseEntity.ok(updatedUser);
+    }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "Error parsing login data";
-        }
+    @DeleteMapping("user/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
+    }
 
-//        return "Invalid User";
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> getAllUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 }
 
