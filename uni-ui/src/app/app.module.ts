@@ -13,12 +13,10 @@ import { StudentHomeScreenModule } from './school/student-home-screen/student-ho
 import { AdminHomeScreenModule } from './school/admin-home-screen/admin-home-screen.module';
 import { SuAdminModule } from './su-admin/su-admin.module';
 import { HospitalHomeScreenModule } from './hospital/hospital-home-screen/hospital-home-screen.module';
-import { LogoutComponent } from './commons/logout/logout.component';
 @NgModule({
   declarations: [AppComponent,
-    LoaderrComponent,
-    LogoutComponent
-  ],
+    LoaderrComponent  ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,

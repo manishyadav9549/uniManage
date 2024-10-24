@@ -26,6 +26,11 @@ export class SuAdminComponent {
     { label: 'Hospital', value: 'Hospital' },
     { label: 'Restaurant', value: 'Restaurant' }
   ];
+  selectedRole: string = '';
+  selectedBusiness: string = '';
+  email: string = '';
+  phone: string = '';
+  pass: string = '';
 
   user = { name: '', email: '', role: '', applicationType: '' };
   isEditMode = false;

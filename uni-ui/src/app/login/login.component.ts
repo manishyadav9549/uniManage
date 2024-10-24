@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/su-admin']);
       return;
     }
-    if (this.username == '' || this.password == ''){
+    if (this.username.trim() == '' || this.password.trim() == ''){
       this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter Username and Password.'})
       return;
     }

@@ -7,10 +7,11 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TableModule } from 'primeng/table';
 import { ConfirmationService } from 'primeng/api';
+import { AuthGuard } from '../auth.guard';
 
 
 const routes: Routes = [
-  {path: '', component: SuAdminComponent}
+  {path: '', component: SuAdminComponent, canActivate: [AuthGuard] }
 ]
 
 
