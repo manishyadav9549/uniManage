@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,7 @@ public class UserService {
 
 //     Find user by username
     public User findUserByUserName(String username) {
-        return userRepository.findByUsername(username);
+        return userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
     // Update user
@@ -54,18 +55,23 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public ArrayList getUser(User loginData){
+    public ArrayList getUser(String username, String password){
         ArrayList result = new ArrayList<>();
-        String username = loginData.getUsername();
-        String password = loginData.getPassword();
-        User user = findUserByUserName(username);
-        if (user.getPassword().equals(password)){
-            result.add(user);
+        try{
+            User user = findUserByUserName(username);
+            System.out.println("before query");
+            System.out.println("user: "+ user);
+            if (user.getPassword().equals(password)){
+                result.add(user);
+                return result;
+            }
+            else{
+                result.add("Password didn't matched");
+                return result;
+            }
+        } catch (Exception e) {
+            result.add("Error :"+ e);
             return result;
         }
-        else{
-            result.add("Password didn't matched");
-        }
-        return result;
     }
 }

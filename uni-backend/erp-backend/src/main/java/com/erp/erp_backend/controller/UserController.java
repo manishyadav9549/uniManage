@@ -1,7 +1,7 @@
 package com.erp.erp_backend.controller;
-import java.io.IOException;
 import java.util.*;
 
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.erp.erp_backend.model.User;
 import com.erp.erp_backend.services.UserService;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONObject;
+
 
 @RestController
 @RequestMapping("/uniLogin")
@@ -26,9 +26,14 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/user")
-    public ArrayList<User> signIn(@RequestBody User loginData) {
-    ArrayList user = userService.getUser(loginData);
-    return user;
+    public ArrayList<User> signIn(@RequestBody String loginData) throws JSONException {
+        JSONObject jsonObject = new JSONObject(loginData);
+        System.out.println("loginData"+ loginData);
+        String username = jsonObject.getString("username");
+        String password = jsonObject.getString("password");
+        System.out.println("Manish uswe"+ username+ ", pass:"+ password);
+        ArrayList user = userService.getUser(username, password);
+        return user;
     }
 
 
