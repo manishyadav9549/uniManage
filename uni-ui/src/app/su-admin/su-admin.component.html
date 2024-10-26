@@ -1,93 +1,204 @@
+<p-toast></p-toast>
 <div class="su-admin-container">
-  <i class="fa fa-sign-out" style="font-size:48px;color:red"></i>
-    <h2>Super Admin: Manage Users</h2>
-    <!-- <app-logout></app-logout> -->
-     <div class="pi pi-sign-out"></div>
-  
-    <!-- Create/Modify User Form -->
-    <div class="user-form">
-      <h3>{{ isEditMode ? 'Modify User' : 'Create User' }}</h3>
-  
-      <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+  <!-- Logout Icon -->
+  <i class="fa fa-sign-out" style="font-size:48px; color:red;"></i>
+
+  <h2>Super Admin: Manage Entities</h2>
+
+  <!-- Add Entity Type Dropdown Menu -->
+  <div class="add-button-container">
+    <p-menu #entityMenu [popup]="true" [model]="entityMenuItems"></p-menu>
+    <button pButton type="button" *ngIf="entityType === ''" label="Add" icon="pi pi-plus"
+      (click)="entityMenu.toggle($event)"></button>
+  </div>
+
+  <!-- School Form -->
+  <div class="entity-form" *ngIf="entityType === 'school'">
+    <h2><b>{{ isEditMode ? 'Modify School' : 'Add School' }}</b></h2>
+    <form #schoolForm="ngForm" (ngSubmit)="onSubmit(schoolForm)">
+      <div class="two-column-layout">
         <div class="form-group">
-          <label for="name">Application Name</label>
-          <input
-            id="name"
-            type="text"
-            pInputText
-            [(ngModel)]="user.name"
-            name="name"
-            required
-          />
+          <label for="schoolName">School Name</label>
+          <input id="name" type="text" pInputText [(ngModel)]="school.name" name="name" required />
         </div>
-  
         <div class="form-group">
-          <label for="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            pInputText
-            [(ngModel)]="user.email"
-            name="email"
-            required
-          />
+          <label for="schoolAddress">Address</label>
+          <input id="address" type="text" pInputText [(ngModel)]="school.address" name="address" required />
         </div>
-  
         <div class="form-group">
-          <label for="role">Role</label>
-          <p-dropdown
-            [options]="roles"
-            [(ngModel)]="user.role"
-            name="role"
-            placeholder="Select a Role"
-          ></p-dropdown>
+          <label for="schoolCity">City</label>
+          <input id="city" type="text" pInputText [(ngModel)]="school.city" name="city" required />
         </div>
-  
         <div class="form-group">
-          <label for="applicationType">Application Type</label>
-          <p-dropdown
-            [options]="applicationTypes"
-            [(ngModel)]="user.applicationType"
-            name="applicationType"
-            placeholder="Select Application"
-          ></p-dropdown>
+          <label for="schoolDistrict">District</label>
+          <input id="district" type="text" pInputText [(ngModel)]="school.district" name="district" />
         </div>
-  
-        <button pButton type="submit" label="{{ isEditMode ? 'Update' : 'Create' }}"></button>
-        <button pButton type="button" label="Reset" (click)="onReset()"></button>
-      </form>
-    </div>
-    <br>
-    <br>
-    <br>
-    <!-- User List Table -->
-    <h3>User List</h3>
-    <p-table [value]="users" [paginator]="true" [rows]="10" [responsiveLayout]="'scroll'">
+        <div class="form-group">
+          <label for="schoolState">State</label>
+          <input id="state" type="text" pInputText [(ngModel)]="school.state" name="state" required />
+        </div>
+        <div class="form-group">
+          <label for="schoolPostalCode">Postal Code</label>
+          <input id="postalCode" type="number" pInputText [(ngModel)]="school.postal_code" name="postalCode" required />
+        </div>
+        <div class="form-group">
+          <label for="schoolCountry">Country</label>
+          <input id="country" type="text" pInputText [(ngModel)]="school.country" name="country" required />
+        </div>
+        <div class="form-group">
+          <label for="schoolPhone">Phone</label>
+          <input id="phone" type="tel" pInputText [(ngModel)]="school.phone" name="phone" />
+        </div>
+        <div class="form-group">
+          <label for="schoolEmail">Gmail</label>
+          <input id="email" type="email" pInputText [(ngModel)]="school.gmail" name="gmail" required />
+        </div>
+        <div class="form-group">
+          <label for="schoolPrincipalEmail">Principal Name</label>
+          <input id="principalName" type="text" pInputText [(ngModel)]="school.principalName" name="principalName" />
+        </div>
+        <div class="form-group">
+          <label for="schoolEstablishedDate">Established Year</label>
+          <input id="establishedDate" type="number" pInputText [(ngModel)]="school.establishedYear"
+            name="establishedDate" required />
+        </div>
+        <div class="form-group">
+          <label for="schoolBoardAffiliation">Board Affiliation</label>
+          <input id="boardAffiliation" type="text" pInputText [(ngModel)]="school.boardAffiliation"
+            name="boardAffiliation" />
+        </div>
+        <div class="form-group">
+          <label for="schoolStudentCapacity">Student Capacity</label>
+          <input id="studentCapacity" type="number" pInputText [(ngModel)]="school.studentCapacity"
+            name="studentCapacity" required />
+        </div>
+        <div class="form-group">
+          <label for="schoolCurrentStudentCount">Current Student Count</label>
+          <input id="currentStudentCount" type="number" pInputText [(ngModel)]="school.currentStudentCount"
+            name="currentStudentCount" required />
+        </div>
+      </div>
+      <button pButton type="submit" label="{{ isEditMode ? 'Update' : 'Create' }}"></button>
+    </form>
+  </div>
+
+  <!-- Table to Display Added Schools -->
+  <div class="school-table" *ngIf="schools.length > 0">
+    <p-table [value]="schools" [paginator]="true" [rows]="10">
       <ng-template pTemplate="header">
         <tr>
-          <th>Name</th>
+          <th>School Name</th>
+          <th>Address</th>
+          <th>City</th>
+          <th>District</th>
+          <th>State</th>
+          <th>Postal Code</th>
+          <th>Country</th>
+          <th>Phone</th>
           <th>Email</th>
-          <th>Role</th>
-          <th>Application Type</th>
-          <th>Actions</th>
+          <th>Established Date</th>
+          <th>Board Affiliation</th>
+          <th>Student Capacity</th>
+          <th>Current Student Count</th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-user>
+      <ng-template pTemplate="body" let-school>
         <tr>
-          <td>{{ user.name }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.role }}</td>
-          <td>{{ user.applicationType }}</td>
-          <td>
-            <button pButton icon="pi pi-pencil" class="p-button-warning" (click)="onEditUser(user)"></button>
-            <button pButton icon="pi pi-trash" class="p-button-danger" (click)="onDeleteUser(user)"></button>
-          </td>
+          <td>{{ school.name }}</td>
+          <td>{{ school.address }}</td>
+          <td>{{ school.city }}</td>
+          <td>{{ school.district }}</td>
+          <td>{{ school.state }}</td>
+          <td>{{ school.postal_code }}</td>
+          <td>{{ school.country }}</td>
+          <td>{{ school.phone }}</td>
+          <td>{{ school.gmail }}</td>
+          <td>{{ school.established_date | date:'dd-MM-yyyy' }}</td>
+          <td>{{ school.board_affiliation }}</td>
+          <td>{{ school.student_capacity }}</td>
+          <td>{{ school.current_student_count }}</td>
         </tr>
       </ng-template>
     </p-table>
-  
-    <!-- Delete Confirmation Dialog -->
-    <p-confirmDialog header="Delete User" icon="pi pi-exclamation-triangle" acceptLabel="Yes" rejectLabel="No">
-    </p-confirmDialog>
   </div>
-  
+
+  <!-- Hospital Form -->
+  <!-- <div class="entity-form" *ngIf="type === 'hospital'">
+    <h3>{{ isEditMode ? 'Modify Hospital' : 'Add Hospital' }}</h3>
+    <form #hospitalForm="ngForm" (ngSubmit)="onSubmit(hospitalForm)">
+      <div class="form-group">
+        <label for="hospitalName">Hospital Name</label>
+        <input
+          id="hospitalName"
+          type="text"
+          pInputText
+          [(ngModel)]="hospital.name"
+          name="hospitalName"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="hospitalAddress">Address</label>
+        <input
+          id="hospitalAddress"
+          type="text"
+          pInputText
+          [(ngModel)]="hospital.address"
+          name="hospitalAddress"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="hospitalCapacity">Capacity</label>
+        <input
+          id="hospitalCapacity"
+          type="number"
+          pInputText
+          [(ngModel)]="hospital.capacity"
+          name="hospitalCapacity"
+          required
+        />
+      </div>
+      <button pButton type="submit" label="{{ isEditMode ? 'Update' : 'Create' }}"></button>
+    </form>
+  </div> -->
+
+  <!-- Restaurant Form -->
+  <!-- <div class="entity-form" *ngIf="type === 'restaurant'">
+    <h3>{{ isEditMode ? 'Modify Restaurant' : 'Add Restaurant' }}</h3>
+    <form #restaurantForm="ngForm" (ngSubmit)="onSubmit(restaurantForm)">
+      <div class="form-group">
+        <label for="restaurantName">Restaurant Name</label>
+        <input
+          id="restaurantName"
+          type="text"
+          pInputText
+          [(ngModel)]="restaurant.name"
+          name="restaurantName"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="restaurantCuisine">Cuisine Type</label>
+        <input
+          id="restaurantCuisine"
+          type="text"
+          pInputText
+          [(ngModel)]="restaurant.cuisineType"
+          name="restaurantCuisine"
+        />
+      </div>
+      <div class="form-group">
+        <label for="restaurantCapacity">Seating Capacity</label>
+        <input
+          id="restaurantCapacity"
+          type="number"
+          pInputText
+          [(ngModel)]="restaurant.capacity"
+          name="restaurantCapacity"
+        />
+      </div>
+      <button pButton type="submit" label="{{ isEditMode ? 'Update' : 'Create' }}"></button>
+    </form> -->
+  <!-- </div> -->
+</div>

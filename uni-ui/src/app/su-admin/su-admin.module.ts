@@ -8,6 +8,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TableModule } from 'primeng/table';
 import { ConfirmationService } from 'primeng/api';
 import { AuthGuard } from '../auth.guard';
+import { ButtonModule } from 'primeng/button';
+import { MenuModule } from 'primeng/menu';
+import { ToastModule } from 'primeng/toast';
 
 
 const routes: Routes = [
@@ -23,6 +26,9 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     DropdownModule,
+    ButtonModule,
+    MenuModule,
+    ToastModule,
     TableModule,
     ConfirmDialogModule,
     RouterModule.forChild(routes),

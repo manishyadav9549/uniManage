@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   password: any ='';
   showPassword: boolean = false;
   isLoading : boolean = false;
-  data: any;
+  data: any[] = [];
   constructor( private router: Router, private loginService: LoginService, private messageService: MessageService) {
   }
 
@@ -32,24 +32,25 @@ export class LoginComponent implements OnInit {
       return;
     }
     if (this.username.trim() == '' || this.password.trim() == ''){
-      this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter Username and Password.'})
+      this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter Username and Password.'});
       return;
     }
     let loginData = {
       'username': this.username,
       'password': this.password
     }
-    // this.httpLogin.validateUser(loginData).subscribe((state: School.loginForm) =>{
-      // if(state.data){
-      //   console.log(state.data);
-      //   this.isLoading = false;
-      // }
-
     this.loginService.validateUser(loginData).subscribe({
       next:(response) =>{
         this.data = response
         this.isLoading = false;
-        switch (this.data.userType) {
+        if (this.data[0] === "User not found"){
+          this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Incorrect Username.'})
+        }
+        else if(this.data[0] === "Password didn't matched"){
+          this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Incorrect Password.'})
+
+        }
+        switch (this.data[0]["application_id"]) {
           case 'school':
             if (isNaN(this.username))
               this.router.navigate(['/school-admin']);
@@ -61,6 +62,9 @@ export class LoginComponent implements OnInit {
             break;
           case 'restaurant':
             this.router.navigate(['/restaurant'])
+            break;
+          default:
+            this.router.navigate(['/student'])
         }
       },
       error: (error) => {
