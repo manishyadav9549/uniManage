@@ -20,7 +20,7 @@ import org.json.JSONObject;
 
 @RestController
 @RequestMapping("/uniLogin")
-public class UserController {
+public class SchoolController {
 
     @Autowired
     private UserService userService;
