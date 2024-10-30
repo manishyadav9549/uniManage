@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Chart, registerables } from 'chart.js';
+import { UtilService } from 'src/app/commons/service/util.service';
 
 @Component({
   selector: 'app-admin-home-screen',
@@ -7,11 +9,64 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminHomeScreenComponent implements OnInit {
   schoolName: string = 'School'
+  schoolInfo: any;
+  studentMenuItems = [
+    {
+      label: 'School',
+      icon: 'pi pi-building',
+      // command: () => this.setType('school')
+    },
+    {
+      label: 'Hospital',
+      icon: 'pi pi-heart',
+      // command: () => this.setType('hospital')
+    },
+    {
+      label: 'Restaurant',
+      icon: 'pi pi-hashtag',
+      // command: () => this.setType('restaurant')
+    }
+  ];
 
-  constructor() { }
+  constructor(protected util: UtilService) {
+    Chart.register(...registerables);
+  }
 
   ngOnInit(): void {
-    
+    this.schoolInfo = history.state;
+    this.schoolName = this.schoolInfo.name;
+    console.log("School info: ", this.schoolInfo);
+    this.initializeEnrollmentChart();
+    this.initializePerformanceChart();
+  }
+
+  initializeEnrollmentChart() {
+    new Chart('enrollmentChart', {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+        datasets: [{
+          label: 'Enrollments',
+          data: [10, 15, 20, 25, 30],
+          borderColor: 'blue',
+          fill: false,
+        }]
+      }
+    });
+  }
+
+  initializePerformanceChart() {
+    new Chart('performanceChart', {
+      type: 'bar',
+      data: {
+        labels: ['Math', 'Science', 'English', 'History', 'Art'],
+        datasets: [{
+          label: 'Average Scores',
+          data: [75, 80, 85, 90, 70],
+          backgroundColor: 'orange',
+        }]
+      }
+    });
   }
 
   manageStudents() {

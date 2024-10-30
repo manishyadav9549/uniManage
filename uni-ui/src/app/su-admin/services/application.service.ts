@@ -16,4 +16,9 @@ export class ApplicationService {
    
     return this.http.post(url,applicationData);
   }
+
+  getAppList():Observable<any>{
+    let url = this.basePath + '/uniLogin/schools'
+    return this.http.get(url);
+  }
 }

@@ -1,37 +1,81 @@
+<!-- <p-toolbar>
+  <div pHeader class="header-content">
+    <div class="header-left">
+      <img src="../../../assets/logos/WALogo.jpg" alt="School Logo" class="school-logo" />
+    </div>
+    <div class="header-center">
+      <h2>{{ schoolName }}</h2>
+      <p class="address">Address</p> 
+    </div>
+    <div class="header-right">
+      <div class="p-col-12 p-md-3" (click)="this.util.onLogout()">
+        <i class="pi pi-sign-out" style="font-size: 1.5em; cursor: pointer;"></i>
+        </div>
+    </div>
+  </div>
+</p-toolbar> -->
 <div class="admin-home-container">
-  <h2>{{schoolName}} Dashboard</h2>
+  <h2>{{ schoolName }} Dashboard</h2>
+  
+  <!-- Feature Button Grid -->
   <div class="feature-grid">
-    <!-- Manage Students -->
     <div class="feature-card">
+      <p-menu #entityMenu [popup]="true" [model]="studentMenuItems"></p-menu>
       <p-button label="Manage Students" icon="pi pi-users" class="p-button-info"></p-button>
     </div>
-    <!-- Manage Teachers -->
     <div class="feature-card">
       <p-button label="Manage Teachers" icon="pi pi-id-card" class="p-button-info"></p-button>
     </div>
-    <!-- Manage Classes -->
     <div class="feature-card">
       <p-button label="Manage Classes" icon="pi pi-calendar" class="p-button-info"></p-button>
     </div>
-    <!-- View Reports -->
     <div class="feature-card">
       <p-button label="View Reports" icon="pi pi-chart-line" class="p-button-info"></p-button>
     </div>
-    <!-- Push Notifications -->
     <div class="feature-card">
       <p-button label="Push Notifications" icon="pi pi-bell" class="p-button-info"></p-button>
     </div>
-    <!-- Academic Calendar -->
     <div class="feature-card">
       <p-button label="Academic Calendar" icon="pi pi-calendar-plus" class="p-button-info"></p-button>
     </div>
-    <!-- Fee Status -->
     <div class="feature-card">
       <p-button label="Fee Status" icon="pi pi-wallet" class="p-button-info"></p-button>
     </div>
-    <!-- SMS Broadcast -->
     <div class="feature-card">
       <p-button label="SMS Broadcast" icon="pi pi-envelope" class="p-button-info"></p-button>
+    </div>
+  </div>
+  
+  <!-- Dashboard Charts and Info Panels -->
+  <div class="dashboard-info-section">
+    
+    <!-- Enrollment Stats Chart -->
+    <div class="chart-container">
+      <h3>Enrollment Trends</h3>
+      <canvas id="enrollmentChart"></canvas>
+    </div>
+    
+    <!-- Performance Overview -->
+    <div class="chart-container">
+      <h3>Performance Overview</h3>
+      <canvas id="performanceChart"></canvas>
+    </div>
+
+    <!-- Notifications and Alerts -->
+    <div class="info-panel">
+      <h3>Notifications</h3>
+      <ul>
+        <li>New student enrollments: 8</li>
+        <li>Teacher absences today: 2</li>
+        <li>Upcoming events this week: 3</li>
+      </ul>
+    </div>
+
+    <!-- Fee Collection Summary -->
+    <div class="info-panel">
+      <h3>Fee Collection Summary</h3>
+      <p>Total Collected: ₹2,50,000</p>
+      <p>Pending Fees: ₹50,000</p>
     </div>
   </div>
 </div>

@@ -1,6 +1,9 @@
 package com.erp.erp_backend.controller;
 import java.util.*;
 
+import com.erp.erp_backend.model.School;
+import com.erp.erp_backend.repository.SchoolRepository;
+import com.erp.erp_backend.services.SchoolService;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.erp.erp_backend.model.User;
 import com.erp.erp_backend.services.UserService;
 import org.json.JSONObject;
-
 
 @RestController
 @RequestMapping("/uniLogin")
@@ -36,10 +38,8 @@ public class SchoolController {
         return user;
     }
 
-
     @PostMapping("/addUser")
     public ResponseEntity<User> createUser(@RequestBody User user) {
-        System.out.println(user);
         User newUser = userService.createUser(user);
         return ResponseEntity.ok(newUser);
     }
@@ -66,6 +66,21 @@ public class SchoolController {
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
+    }
+
+    @Autowired
+    private SchoolService schoolService;
+
+    @PostMapping("/addApp")
+    public boolean addApplication(@RequestBody School schoolInfo){
+        System.out.println("School information: "+ schoolInfo);
+        schoolService.createSchool(schoolInfo);
+        return true;
+    }
+
+    @GetMapping("/schools")
+    public List<School> getSchools(){
+        return schoolService.getAllSchools();
     }
 }
 

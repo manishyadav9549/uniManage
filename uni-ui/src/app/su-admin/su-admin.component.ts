@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { School } from './services/applicationModel';
 import { ApplicationService } from './services/application.service';
+import { SCHOOL_TABLE_CONFIG } from './services/school.dummy';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-su-admin',
@@ -12,15 +14,20 @@ import { ApplicationService } from './services/application.service';
 export class SuAdminComponent {
   school!: School;
   schools: School[] = [];
+  paginator = SCHOOL_TABLE_CONFIG.paginator;
+  headers = SCHOOL_TABLE_CONFIG.headers[0].cols;
   invalid: boolean = false;
-  entityType: string = ''; 
+  entityType: string = '';
   isEditMode: boolean = false;
   data: any;
+  sortOrder = 1; // 1 for ascending, -1 for descending
+  sortField: string | null = null;
+  globalFilterFields: string[] = [];
 
-  constructor(private messageService: MessageService, private appService: ApplicationService){
+  constructor(private messageService: MessageService, private appService: ApplicationService, private confirmationService: ConfirmationService, private router: Router) {
     this.schoolIntialize();
   }
-  
+
   entityMenuItems = [
     {
       label: 'School',
@@ -40,6 +47,8 @@ export class SuAdminComponent {
   ];
 
   ngOnInit() {
+    this.getSchools();
+    this.globalFilterFields = this.headers.map((header) => header.valueField);
   }
 
   // Function to set the type and show the corresponding form
@@ -53,16 +62,19 @@ export class SuAdminComponent {
     console.log('Form submitted:', form.value);
     let value = form.value;
     this.validators(value);
-    if(this.invalid == true){
+    if (this.invalid == true) {
       this.invalid = false
       return;
     }
     if (this.isEditMode) {
       // Update logic
-    } else {
+    }
+    else {
       value['applicationType'] = this.entityType;
+      let firstName = value['name'].split(" ");
+      value['id'] = 'S' + value['establishedYear'] + firstName[0] + Math.floor(1000 + Math.random() * 9000);
       this.appService.addApplication(value).subscribe({
-        next:(response)=>{
+        next: (response) => {
           this.data = response
         },
         error: (error) => {
@@ -73,81 +85,138 @@ export class SuAdminComponent {
         }
       });
       // this.schools.push({ ...this.school }); 
-      form.reset(); 
+      form.reset();
+      this.getSchools();
       this.setType("");
     }
   }
 
+  getSchools() {
+    this.appService.getAppList().subscribe({
+      next: (response) => {
+        this.schools = response
+        console.log("School list: " + this.schools);
+      },
+      error: (error) => {
+        console.error('Error fetching schoolList: ', error);
+      },
+      complete: () => {
+        console.log('Data stream completed');
+      }
+    })
+  }
+
+  // Methods for action buttons
+  editSchool(school: School) {
+    // Implement edit logic here
+    this.school = { ...school };
+    this.isEditMode = true;
+  }
+
+  deleteSchool(school: School) {
+    // Implement delete logic here
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete this school?',
+      accept: () => {
+        // this.schools = this.schools.filter(s => s.id !== school.id);
+        this.messageService.add({ severity: 'success', summary: 'Deleted', detail: 'School deleted successfully.' });
+      }
+    });
+  }
+
+  viewDetails(school: School) {
+    // Implement view details logic here
+    console.log('Viewing details for', school);
+    this.router.navigate(["/school-admin"],{state :school});
+  }
+
+
   validators(value: any) {
     console.log("Manish value", value);
-    if(value.name.trim() == ''){
-      this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter School Name.'});
+    if (value.name.trim() == '') {
+      this.messageService.add({ 'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter School Name.' });
       this.invalid = true;
       return;
     }
-    else if (value.address.trim() == ''){
-      this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter Address.'});
-      this.invalid = true;
-      return; 
-    }
-    else if(value.city.trim() == ''){
-      this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter City.'});
+    else if (value.address.trim() == '') {
+      this.messageService.add({ 'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter Address.' });
       this.invalid = true;
       return;
     }
-    else if(value.district.trim() == ''){
-      this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter District.'});
+    else if (value.city.trim() == '') {
+      this.messageService.add({ 'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter City.' });
       this.invalid = true;
       return;
     }
-    else if(value.state.trim() == ''){
-      this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter State.'});
+    else if (value.district.trim() == '') {
+      this.messageService.add({ 'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter District.' });
       this.invalid = true;
       return;
     }
-    else if(value.postalCode == 0){
-      this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter PIN Code.'});
+    else if (value.state.trim() == '') {
+      this.messageService.add({ 'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter State.' });
       this.invalid = true;
       return;
     }
-    else if(value.country.trim() == ''){
-      this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter Country.'});
+    else if (value.postalCode == 0) {
+      this.messageService.add({ 'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter PIN Code.' });
       this.invalid = true;
       return;
     }
-    else if(value.phone.trim() == '' || value.phone.isNaN){
-      this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter Valid Phone Number.'});
+    else if (value.country.trim() == '') {
+      this.messageService.add({ 'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter Country.' });
       this.invalid = true;
       return;
     }
-    else if(value.gmail.trim() == ''){
-      this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter Gmail.'});
+    else if (value.phone.trim() == '' || value.phone.isNaN) {
+      this.messageService.add({ 'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter Valid Phone Number.' });
       this.invalid = true;
       return;
     }
-    else if(!value.gmail.trim().endsWith('@gmail.com')){
-      this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter Valid Gmail.'});
+    else if (value.gmail.trim() == '') {
+      this.messageService.add({ 'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter Gmail.' });
       this.invalid = true;
       return;
     }
-    else if(value.principalName.trim() == ''){
-      this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter Principal name.'});
+    else if (!value.gmail.trim().endsWith('@gmail.com')) {
+      this.messageService.add({ 'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter Valid Gmail.' });
       this.invalid = true;
       return;
     }
-    else if(value.current_student_count == 0){
-      this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter Student\'s Strength.'});
+    else if (value.principalName.trim() == '') {
+      this.messageService.add({ 'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter Principal name.' });
       this.invalid = true;
       return;
     }
-    else if(value.student_capacity == 0){
-      this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter Total Student Capacity.'});
+    else if (value.current_student_count == 0) {
+      this.messageService.add({ 'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter Student\'s Strength.' });
+      this.invalid = true;
+      return;
+    }
+    else if (value.student_capacity == 0) {
+      this.messageService.add({ 'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter Total Student Capacity.' });
       this.invalid = true;
       return;
     }
   }
 
+  sort(field: string) {
+    this.sortField = field;
+    this.sortOrder = this.sortOrder === 1 ? -1 : 1; // Toggle sort order
 
+    this.schools.sort((a: any, b: any) => {
+      const valueA = a[field];
+      const valueB = b[field];
+
+      if (valueA < valueB) {
+        return -1 * this.sortOrder;
+      }
+      if (valueA > valueB) {
+        return 1 * this.sortOrder;
+      }
+      return 0;
+    });
+  }
 
 
   schoolIntialize() {
@@ -163,13 +232,13 @@ export class SuAdminComponent {
       phone: 0, // Default or initial value
       gmail: '',
       principalName: '',
-      establishedYear: new Date(), // Default or initial value
+      establishedYear: 0, // Default or initial value
       boardAffiliation: '',
       studentCapacity: 0, // Default or initial value
       currentStudentCount: 0, // Default or initial value
       website_url: '',
       last_updated: new Date() // Default or initial value
-  };
+    };
   }
 
 }

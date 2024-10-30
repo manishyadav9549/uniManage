@@ -28,7 +28,9 @@ export class LoginComponent implements OnInit {
     this.username = username;
     this.password = password;
     if (this.username == 'manish' && this.password == 'manish'){
+      // this.router.navigate(['/school-admin']);
       this.router.navigate(['/su-admin']);
+      // this.router.navigate(['/student']);
       return;
     }
     if (this.username.trim() == '' || this.password.trim() == ''){

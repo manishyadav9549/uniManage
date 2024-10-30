@@ -12,7 +12,7 @@ export interface School {
     principalName: string,
     // principal_email: string,
     // director_name: string,
-    establishedYear: Date,
+    establishedYear: number,
     boardAffiliation: string,
     // school_type	
     // school_level	

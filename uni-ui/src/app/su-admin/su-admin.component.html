@@ -60,7 +60,7 @@
         <div class="form-group">
           <label for="schoolEstablishedDate">Established Year</label>
           <input id="establishedDate" type="number" pInputText [(ngModel)]="school.establishedYear"
-            name="establishedDate" required />
+            name="establishedYear" required />
         </div>
         <div class="form-group">
           <label for="schoolBoardAffiliation">Board Affiliation</label>
@@ -82,123 +82,41 @@
     </form>
   </div>
 
-  <!-- Table to Display Added Schools -->
+
   <div class="school-table" *ngIf="schools.length > 0">
-    <p-table [value]="schools" [paginator]="true" [rows]="10">
+    <div class="global-filter">
+      <input type="text" pInputText placeholder="Global Filter"
+        (input)="schoolTable.filterGlobal($any($event.target).value, 'contains')" class="global-filter-input" />
+    </div>
+    <p-table #schoolTable [value]="schools" [paginator]="true" [rows]="paginator.rows"
+      [globalFilterFields]="globalFilterFields" [rowsPerPageOptions]="paginator.rowsPerPageOptions">
       <ng-template pTemplate="header">
         <tr>
-          <th>School Name</th>
-          <th>Address</th>
-          <th>City</th>
-          <th>District</th>
-          <th>State</th>
-          <th>Postal Code</th>
-          <th>Country</th>
-          <th>Phone</th>
-          <th>Email</th>
-          <th>Established Date</th>
-          <th>Board Affiliation</th>
-          <th>Student Capacity</th>
-          <th>Current Student Count</th>
+          <th *ngFor="let header of headers" [class]="header.classes + ' sortable-header'"
+            (click)="sort(header.valueField)">
+            {{ header.label }}
+            <i *ngIf="sortField === header.valueField" class="pi"
+              [ngClass]="sortOrder === 1 ? 'pi pi-sort-amount-up' : 'pi pi-sort-amount-down'"></i>
+          </th>
+          <th class="text-center">Actions</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-school>
         <tr>
-          <td>{{ school.name }}</td>
-          <td>{{ school.address }}</td>
-          <td>{{ school.city }}</td>
-          <td>{{ school.district }}</td>
-          <td>{{ school.state }}</td>
-          <td>{{ school.postal_code }}</td>
-          <td>{{ school.country }}</td>
-          <td>{{ school.phone }}</td>
-          <td>{{ school.gmail }}</td>
-          <td>{{ school.established_date | date:'dd-MM-yyyy' }}</td>
-          <td>{{ school.board_affiliation }}</td>
-          <td>{{ school.student_capacity }}</td>
-          <td>{{ school.current_student_count }}</td>
+          <td *ngFor="let header of headers" [class]="header.classes">
+            {{ school[header.valueField] }}
+          </td>
+          <td class="text-center">
+            <button (click)="editSchool(school)" pButton icon="pi pi-pencil" class="action-button edit-button"
+              title="Edit"></button>
+            <button (click)="deleteSchool(school)" pButton icon="pi pi-trash" class="action-button delete-button"
+              title="Delete"></button>
+            <button (click)="viewDetails(school)" pButton icon="pi pi-info-circle" class="action-button details-button"
+              title="Details"></button>
+          </td>
+
         </tr>
       </ng-template>
     </p-table>
   </div>
-
-  <!-- Hospital Form -->
-  <!-- <div class="entity-form" *ngIf="type === 'hospital'">
-    <h3>{{ isEditMode ? 'Modify Hospital' : 'Add Hospital' }}</h3>
-    <form #hospitalForm="ngForm" (ngSubmit)="onSubmit(hospitalForm)">
-      <div class="form-group">
-        <label for="hospitalName">Hospital Name</label>
-        <input
-          id="hospitalName"
-          type="text"
-          pInputText
-          [(ngModel)]="hospital.name"
-          name="hospitalName"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="hospitalAddress">Address</label>
-        <input
-          id="hospitalAddress"
-          type="text"
-          pInputText
-          [(ngModel)]="hospital.address"
-          name="hospitalAddress"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="hospitalCapacity">Capacity</label>
-        <input
-          id="hospitalCapacity"
-          type="number"
-          pInputText
-          [(ngModel)]="hospital.capacity"
-          name="hospitalCapacity"
-          required
-        />
-      </div>
-      <button pButton type="submit" label="{{ isEditMode ? 'Update' : 'Create' }}"></button>
-    </form>
-  </div> -->
-
-  <!-- Restaurant Form -->
-  <!-- <div class="entity-form" *ngIf="type === 'restaurant'">
-    <h3>{{ isEditMode ? 'Modify Restaurant' : 'Add Restaurant' }}</h3>
-    <form #restaurantForm="ngForm" (ngSubmit)="onSubmit(restaurantForm)">
-      <div class="form-group">
-        <label for="restaurantName">Restaurant Name</label>
-        <input
-          id="restaurantName"
-          type="text"
-          pInputText
-          [(ngModel)]="restaurant.name"
-          name="restaurantName"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="restaurantCuisine">Cuisine Type</label>
-        <input
-          id="restaurantCuisine"
-          type="text"
-          pInputText
-          [(ngModel)]="restaurant.cuisineType"
-          name="restaurantCuisine"
-        />
-      </div>
-      <div class="form-group">
-        <label for="restaurantCapacity">Seating Capacity</label>
-        <input
-          id="restaurantCapacity"
-          type="number"
-          pInputText
-          [(ngModel)]="restaurant.capacity"
-          name="restaurantCapacity"
-        />
-      </div>
-      <button pButton type="submit" label="{{ isEditMode ? 'Update' : 'Create' }}"></button>
-    </form> -->
-  <!-- </div> -->
 </div>
