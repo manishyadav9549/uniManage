@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SchoolService {
@@ -19,5 +20,9 @@ public class SchoolService {
 
     public List<School> getAllSchools() {
         return schoolRepository.findAll();
+    }
+
+    public Optional<School> getSchool(String school_id){
+        return schoolRepository.findById(school_id);
     }
 }

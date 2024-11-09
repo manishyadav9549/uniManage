@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit {
     this.password = password;
     if (this.username == 'manish' && this.password == 'manish'){
       // this.router.navigate(['/school-admin']);
-      // this.router.navigate(['/su-admin']);
-      this.router.navigate(['/student']);
+      this.router.navigate(['/su-admin']);
+      // this.router.navigate(['/student']);
       return;
     }
     if (this.username.trim() == '' || this.password.trim() == ''){
@@ -60,13 +60,13 @@ export class LoginComponent implements OnInit {
         }
         switch (this.data[0]["role"]) {
           case 'teacher':
-            this.router.navigate(['/school-admin']);
+            this.router.navigate(['/school-admin'],{state: this.data});
             break;
           case 'admin':
-            this.router.navigate(['/school-admin']);
+            this.router.navigate(['/school-admin'],{state: this.data});
             break;
           case 'student':
-            this.router.navigate(['/student'])
+            this.router.navigate(['/student'],{state: this.data})
             break;
         }
       },

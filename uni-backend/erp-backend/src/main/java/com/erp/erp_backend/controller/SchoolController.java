@@ -1,6 +1,7 @@
 package com.erp.erp_backend.controller;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -81,6 +82,12 @@ public class SchoolController {
     @GetMapping("/schools") // Get All Schools list
     public List<School> getSchools(){
         return schoolService.getAllSchools();
+    }
+
+    @GetMapping("/school/{id}")
+    public Optional<School> getSchool(@PathVariable String school_id){
+        Optional<School> sch = schoolService.getSchool(school_id);
+        return sch;
     }
 }
 
