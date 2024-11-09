@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit {
     this.password = password;
     if (this.username == 'manish' && this.password == 'manish'){
       // this.router.navigate(['/school-admin']);
-      this.router.navigate(['/su-admin']);
-      // this.router.navigate(['/student']);
+      // this.router.navigate(['/su-admin']);
+      this.router.navigate(['/student']);
       return;
     }
     if (this.username.trim() == '' || this.password.trim() == ''){
@@ -46,27 +46,28 @@ export class LoginComponent implements OnInit {
         this.data = response
         this.isLoading = false;
         if (this.data[0] === "User not found"){
-          this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Incorrect Username.'})
+          this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Incorrect Username.'});
+          return;
         }
         else if(this.data[0] === "Password didn't matched"){
-          this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Incorrect Password.'})
+          this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Incorrect Password.'});
+          return;
 
         }
-        switch (this.data[0]["application_id"]) {
-          case 'school':
-            if (isNaN(this.username))
-              this.router.navigate(['/school-admin']);
-            else
-             this.router.navigate(['/student']);
+        else if (typeof(this.data[0]) == "string" && this.data[0].startsWith('Error')){
+          this.messageService.add({'severity': 'warn', 'summary': 'Error', 'detail': 'Something bad happened. Please try again after some time'});
+          return;
+        }
+        switch (this.data[0]["role"]) {
+          case 'teacher':
+            this.router.navigate(['/school-admin']);
             break;
-          case 'hospital':
-            this.router.navigate(['/hospital']);
+          case 'admin':
+            this.router.navigate(['/school-admin']);
             break;
-          case 'restaurant':
-            this.router.navigate(['/restaurant'])
-            break;
-          default:
+          case 'student':
             this.router.navigate(['/student'])
+            break;
         }
       },
       error: (error) => {

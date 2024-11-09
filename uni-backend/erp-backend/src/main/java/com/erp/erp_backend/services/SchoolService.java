@@ -1,7 +1,6 @@
 package com.erp.erp_backend.services;
 
 import com.erp.erp_backend.model.School;
-import com.erp.erp_backend.model.User;
 import com.erp.erp_backend.repository.SchoolRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

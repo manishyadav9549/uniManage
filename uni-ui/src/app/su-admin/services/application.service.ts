@@ -12,13 +12,13 @@ export class ApplicationService {
   constructor(private http: HttpClient) { }
 
   addApplication(applicationData: School): Observable<any> {
-    let url = this.basePath + '/uniLogin/addApp'
+    let url = this.basePath + '/uniManage/addApp'
    
     return this.http.post(url,applicationData);
   }
 
   getAppList():Observable<any>{
-    let url = this.basePath + '/uniLogin/schools'
+    let url = this.basePath + '/uniManage/schools'
     return this.http.get(url);
   }
 }

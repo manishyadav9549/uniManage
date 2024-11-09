@@ -29,8 +29,8 @@ public class UserService {
     }
 
 //     Find user by username
-    public User findUserByUserName(String username) {
-        return userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
+    public User findByPhone(String username) {
+        return userRepository.findByPhone(username).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
     // Update user
@@ -40,7 +40,6 @@ public class UserService {
         user.setEmail(userDetails.getEmail());
         user.setPhone(userDetails.getPhone());
         user.setRole(userDetails.getRole());
-        user.setApplication_id(userDetails.getApplication_id());
 //        user.setLastmodifiedBy();
         return userRepository.save(user);
     }
@@ -58,7 +57,7 @@ public class UserService {
     public ArrayList getUser(String username, String password){
         ArrayList result = new ArrayList<>();
         try{
-            User user = findUserByUserName(username);
+            User user = findByPhone(username);
             System.out.println("before query");
             System.out.println("user: "+ user);
             if (user.getPassword().equals(password)){

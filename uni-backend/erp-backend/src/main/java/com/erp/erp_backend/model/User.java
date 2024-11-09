@@ -19,9 +19,6 @@ public class User {
     private String password;
 
     @Column(unique = true, nullable = false)
-    private String username;
-
-    @Column(unique = true, nullable = false)
     private String email;
 
     @Column(unique = true, nullable = false)
@@ -30,9 +27,7 @@ public class User {
     @Column(nullable = false)
     private String role;
 
-    @Column(name = "application_id")
-    private String application_id;
+    @Column(nullable = false)
+    private String school_id;
 
-    @Column(name = "modified_by")
-    private String modified_by;
 }

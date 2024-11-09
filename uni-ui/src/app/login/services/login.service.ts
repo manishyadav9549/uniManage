@@ -11,7 +11,7 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   validateUser(loginData: any): Observable<any> {
-    let url = this.basePath + '/uniLogin/user'
+    let url = this.basePath + '/uniManage/user'
    
     return this.http.post(url,loginData);
     }

@@ -8,9 +8,7 @@
       <p class="address">Address</p> 
     </div>
     <div class="header-right">
-      <div class="p-col-12 p-md-3" (click)="this.util.onLogout()">
-        <i class="pi pi-sign-out" style="font-size: 1.5em; cursor: pointer;"></i>
-        </div>
+      <i class="pi pi-sign-out logout-icon" (click)="this.util.onLogout()"></i>
     </div>
   </div>
 </p-toolbar> -->
@@ -21,7 +19,7 @@
   <div class="feature-grid">
     <div class="feature-card">
       <p-menu #entityMenu [popup]="true" [model]="studentMenuItems"></p-menu>
-      <p-button label="Manage Students" icon="pi pi-users" class="p-button-info"></p-button>
+      <p-button label="Manage Students" icon="pi pi-users" class="p-button-info" ></p-button>
     </div>
     <div class="feature-card">
       <p-button label="Manage Teachers" icon="pi pi-id-card" class="p-button-info"></p-button>

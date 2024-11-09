@@ -13,6 +13,7 @@ export class StudentHomeScreenComponent implements OnInit {
 
   ngOnInit(): void {
     this.schoolName = "Woodland Academy"
+
   }
 
  
