@@ -1,15 +1,14 @@
 <p-toast></p-toast>
 <div class="su-admin-container">
   <!-- Logout Icon -->
-  <i class="fa fa-sign-out" style="font-size:48px; color:red;"></i>
+  <i class="fa fa-sign-out logout-icon"></i>
 
   <h2>Super Admin: Manage Entities</h2>
 
   <!-- Add Entity Type Dropdown Menu -->
   <div class="add-button-container">
     <p-menu #entityMenu [popup]="true" [model]="entityMenuItems"></p-menu>
-    <button pButton type="button" *ngIf="entityType === ''" label="Add" icon="pi pi-plus"
-      (click)="entityMenu.toggle($event)"></button>
+    <button pButton type="button" *ngIf="entityType === ''" label="Add" icon="pi pi-plus" (click)="entityMenu.toggle($event)"></button>
   </div>
 
   <!-- School Form -->
@@ -17,6 +16,7 @@
     <h2><b>{{ isEditMode ? 'Modify School' : 'Add School' }}</b></h2>
     <form #schoolForm="ngForm" (ngSubmit)="onSubmit(schoolForm)">
       <div class="two-column-layout">
+        <!-- Form fields for school details -->
         <div class="form-group">
           <label for="schoolName">School Name</label>
           <input id="name" type="text" pInputText [(ngModel)]="school.name" name="name" required />
@@ -59,44 +59,36 @@
         </div>
         <div class="form-group">
           <label for="schoolEstablishedDate">Established Year</label>
-          <input id="establishedDate" type="number" pInputText [(ngModel)]="school.establishedYear"
-            name="establishedYear" required />
+          <input id="establishedDate" type="number" pInputText [(ngModel)]="school.establishedYear" name="establishedYear" required />
         </div>
         <div class="form-group">
           <label for="schoolBoardAffiliation">Board Affiliation</label>
-          <input id="boardAffiliation" type="text" pInputText [(ngModel)]="school.boardAffiliation"
-            name="boardAffiliation" />
+          <input id="boardAffiliation" type="text" pInputText [(ngModel)]="school.boardAffiliation" name="boardAffiliation" />
         </div>
         <div class="form-group">
           <label for="schoolStudentCapacity">Student Capacity</label>
-          <input id="studentCapacity" type="number" pInputText [(ngModel)]="school.studentCapacity"
-            name="studentCapacity" required />
+          <input id="studentCapacity" type="number" pInputText [(ngModel)]="school.studentCapacity" name="studentCapacity" required />
         </div>
         <div class="form-group">
           <label for="schoolCurrentStudentCount">Current Student Count</label>
-          <input id="currentStudentCount" type="number" pInputText [(ngModel)]="school.currentStudentCount"
-            name="currentStudentCount" required />
+          <input id="currentStudentCount" type="number" pInputText [(ngModel)]="school.currentStudentCount" name="currentStudentCount" required />
         </div>
       </div>
       <button pButton type="submit" label="{{ isEditMode ? 'Update' : 'Create' }}"></button>
     </form>
   </div>
 
-
+  <!-- School Table -->
   <div class="school-table" *ngIf="schools.length > 0">
     <div class="global-filter">
-      <input type="text" pInputText placeholder="Global Filter"
-        (input)="schoolTable.filterGlobal($any($event.target).value, 'contains')" class="global-filter-input" />
+      <input type="text" pInputText placeholder="Global Filter" (input)="schoolTable.filterGlobal($any($event.target).value, 'contains')" class="global-filter-input" />
     </div>
-    <p-table #schoolTable [value]="schools" [paginator]="true" [rows]="paginator.rows"
-      [globalFilterFields]="globalFilterFields" [rowsPerPageOptions]="paginator.rowsPerPageOptions">
+    <p-table #schoolTable [value]="schools" [paginator]="true" [rows]="paginator.rows" [globalFilterFields]="globalFilterFields" [rowsPerPageOptions]="paginator.rowsPerPageOptions">
       <ng-template pTemplate="header">
         <tr>
-          <th *ngFor="let header of headers" [class]="header.classes + ' sortable-header'"
-            (click)="sort(header.valueField)">
+          <th *ngFor="let header of headers" [class]="header.classes + ' sortable-header'" (click)="sort(header.valueField)">
             {{ header.label }}
-            <i *ngIf="sortField === header.valueField" class="pi"
-              [ngClass]="sortOrder === 1 ? 'pi pi-sort-amount-up' : 'pi pi-sort-amount-down'"></i>
+            <i *ngIf="sortField === header.valueField" class="pi" [ngClass]="sortOrder === 1 ? 'pi pi-sort-amount-up' : 'pi pi-sort-amount-down'"></i>
           </th>
           <th class="text-center">Actions</th>
         </tr>
@@ -107,14 +99,10 @@
             {{ school[header.valueField] }}
           </td>
           <td class="text-center">
-            <button (click)="editSchool(school)" pButton icon="pi pi-pencil" class="action-button edit-button"
-              title="Edit"></button>
-            <button (click)="deleteSchool(school)" pButton icon="pi pi-trash" class="action-button delete-button"
-              title="Delete"></button>
-            <button (click)="viewDetails(school)" pButton icon="pi pi-info-circle" class="action-button details-button"
-              title="Details"></button>
+            <button (click)="editSchool(school)" pButton icon="pi pi-pencil" class="action-button edit-button" title="Edit"></button>
+            <button (click)="deleteSchool(school)" pButton icon="pi pi-trash" class="action-button delete-button" title="Delete"></button>
+            <button (click)="viewDetails(school)" pButton icon="pi pi-info-circle" class="action-button details-button" title="Details"></button>
           </td>
-
         </tr>
       </ng-template>
     </p-table>

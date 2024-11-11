@@ -7,93 +7,75 @@ body {
 /* Login Page Layout */
 .login-page {
   display: flex;
-  justify-content: space-between;
-  align-items: center; /* Center vertically */
+  justify-content: center;
+  align-items: center;
   padding: 20px;
-  height: 95vh; /* Full height of the viewport */
+  min-height: 100vh;
 }
-
 
 /* Center Section */
 .center-section {
-  width: 34%;
-  margin-left: 33%;
-  margin-right: 33%;
-  margin-top: 33%;
-  margin-bottom: 33%;
+  width: 100%;
+  max-width: 400px; /* Sets a max width for larger screens */
+  padding: 10px;
   display: flex;
   justify-content: center;
-  align-items: center; 
-  background: inherit; 
+  align-items: center;
 }
 
 .dialogue-box {
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(235, 15, 99, 0.2);
-  padding: 30px;
-  width: 95vw;
+  padding: 20px;
+  width: 100%;
 }
 
-/* Company Logo */
-.CompanyLogo {
-  max-width: 100px; /* Adjust as needed */
-  display: block;
-  margin: 0 auto 20px auto;
+/* ERP Title */
+.erp-title {
+  text-align: center;
+  font-size: 2.5em;
+  padding-bottom: 7px;
+  background: linear-gradient(45deg, #f04e9f, #9b65ce, #a5bd51, #d74bdf);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-animation 5s ease infinite;
 }
 
+/* Input Fields */
 .input-field {
   display: flex;
-  align-items: center; /* Align items horizontally in the center */
-  margin-bottom: 1rem; /* Space between input fields */
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-direction: column; /* Stacks label and input */
 }
 
 .input-field label {
-  width: 120px; /* Set a fixed width for labels */
-  margin-right: 1rem; /* Space between label and input */
+  width: 100%;
+  margin-bottom: 5px; /* Adjust for mobile */
 }
 
-.input-field input{
-  width: 25vw; 
-}
-
-.password-container {
-  display: flex;
-  align-items: center; /* Align toggle with the input */
-}
-
-
-input[type="text"],
-input[type="password"] {
-  // width: 100%;
+.input-field input {
+  width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   transition: border-color 0.3s ease;
 }
-/* Input Field States */
-input:focus {
-  border-color: #007bff; /* Blue for focused state */
-}
-
-input.touched {
-  border-color: #28a745; /* Green when touched */
-}
 
 .password-container {
-  position: relative; /* Positioning context for the icon */
+  position: relative;
+  width: 100%;
 }
 
-
-
 .toggle-password {
-  position: absolute; /* Absolute position to place inside the input */
-  right: 10px; /* Distance from the right */
-  top: 50%; /* Center vertically */
-  transform: translateY(-50%); /* Adjust to align vertically */
-  cursor: pointer; /* Show pointer on hover */
-  font-size: 1.2em; /* Adjust size of the icon */
-  color: #555; /* Color of the icon */
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.2em;
+  color: #555;
 }
 
 /* Button Styles */
@@ -110,39 +92,14 @@ input.touched {
 }
 
 .login-button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0056b3;
 }
 
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .login-page {
-      flex-direction: column; /* Stack the sections */
-  }
-
-  .left-section, .right-section {
-      width: 100%;
-      margin-bottom: 20px;
-  }
-
-  .center-section {
-      width: 100%;
-  }
-}
-
-/* Style for the ERP title */
-.erp-title {
-  text-align: center; /* Center the text */
-  font-size: 3em; /* Adjust size as needed */
-  padding-bottom: 7px;
-  background: linear-gradient(45deg, #f04e9f, #9b65ce, #a5bd51, #d74bdf); /* Multicolor gradient */
-  -webkit-background-clip: text; /* Clip the background to the text */
-  -webkit-text-fill-color: transparent; /* Make the text transparent */
-  animation: gradient-animation 5s ease infinite; /* Optional: animation for the gradient */
-}
+/* Forgot Password Link */
 .forgot-password {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 10px 0;
   text-align: right;
+  width: 100%;
 }
 
 .forgot-password a {
@@ -153,4 +110,35 @@ input.touched {
 
 .forgot-password a:hover {
   text-decoration: underline;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .erp-title {
+    font-size: 2em; /* Reduce title font size on smaller screens */
+  }
+
+  .dialogue-box {
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(235, 15, 99, 0.2); /* Reduce shadow for mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .erp-title {
+    font-size: 1.5em;
+  }
+
+  .input-field input {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .login-button {
+    font-size: 14px;
+  }
+
+  .forgot-password {
+    font-size: 0.8em;
+  }
 }
