@@ -11,6 +11,14 @@
   margin: 0 auto; /* Center the toolbar */
 }
 
+.high-priority {
+  color: red;
+}
+
+.low-priority {
+  color: green;
+}
+
 /* Left section for the logo */
 .header-left .school-logo {
   width: 80px; /* Adjust logo size */

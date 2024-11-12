@@ -27,23 +27,35 @@
 <div class="student-portal">
   <div class="p-grid">
     <!-- Recent Notifications -->
-    <div class="p-col-12 p-md-6">
+    <div class="p-col-12 p-md-4">
       <p-panel header="Recent Notifications">
         <ul>
-          <li>On 15th August, School will start from 9AM </li>
-          <li>Tomorrow will be a holiday</li>
-          <!-- Add more notifications dynamically -->
+          <li *ngFor="let notification of notifications"
+          [ngClass]="{'high-priority': notification.priority === 'high', 'low-priority': notification.priority === 'low'}">
+            {{ notification.text }}
+          </li>
         </ul>
       </p-panel>
     </div>
 
     <!-- Upcoming Events -->
-    <div class="p-col-12 p-md-6">
+    <div class="p-col-12 p-md-4">
       <p-panel header="Upcoming Events">
         <ul>
-          <li>Midterm Exam: 10th Oct 2024</li>
-          <li>Science Fair: 20th Oct 2024</li>
-          <!-- Add more events dynamically -->
+          <li *ngFor="let event of events">
+            {{ event.text }}: {{ event.date }}
+          </li>
+        </ul>
+      </p-panel>
+    </div>
+
+    <!-- Attendence % -->
+    <div class="p-col-12 p-md-4">
+      <p-panel header="Attendence Percentage">
+        <ul>
+          <li>
+            Attendence till {{currentDate}} : {{ attendence }}
+          </li>
         </ul>
       </p-panel>
     </div>
@@ -71,6 +83,11 @@
               <td>Science</td>
               <td>78</td>
               <td>B+</td>
+            </tr>
+            <tr>
+              <td>SST</td>
+              <td>82</td>
+              <td>A</td>
             </tr>
             <!-- Add more rows dynamically -->
           </tbody>
