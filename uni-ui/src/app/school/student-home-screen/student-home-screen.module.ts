@@ -5,6 +5,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { PanelModule } from 'primeng/panel';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'src/app/auth.guard';
+import { MenuModule } from 'primeng/menu';
 
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
     ToolbarModule,
     PanelModule,
     CommonModule,
+    MenuModule,
     RouterModule.forChild(routes)
   ]
 })

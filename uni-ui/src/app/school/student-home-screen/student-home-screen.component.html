@@ -5,16 +5,18 @@
     </div>
     <div class="header-center">
       <h1><b>{{ schoolName }}</b></h1>
-      <p class="address">Address</p> <!-- Add address here -->
+      <p class="address">Address</p> 
     </div>
     <div class="header-right">
-      <div class="p-col-12 p-md-3" (click)="onLogout()">
-        <i class="pi pi-sign-out" style="font-size: 1.5em; cursor: pointer;"></i>
-        </div>
+      <div class="p-col-12 p-md-3" (click)="toggleMenu($event)">
+        <i class="pi pi-bars" style="font-size: 1.5em; cursor: pointer; background-color:aliceblue"></i>
+      </div>
     </div>
   </div>
 </p-toolbar>
 
+<!-- User Menu with Quick Links -->
+<p-menu #menu [popup]="true" [model]="menuItems"></p-menu>
 
 <p-toolbar>
   <div class="p-toolbar-group-center welcome-message">
@@ -22,14 +24,14 @@
   </div>
 </p-toolbar>
 
-
 <div class="student-portal">
   <div class="p-grid">
     <!-- Recent Notifications -->
     <div class="p-col-12 p-md-6">
       <p-panel header="Recent Notifications">
         <ul>
-          <li>No new notifications</li>
+          <li>On 15th August, School will start from 9AM </li>
+          <li>Tomorrow will be a holiday</li>
           <!-- Add more notifications dynamically -->
         </ul>
       </p-panel>
@@ -47,31 +49,33 @@
     </div>
   </div>
 
-  <!-- Quick Links -->
-  <div class="student-portal">
-    <nav class="quick-links">
-      <h2>Quick Links</h2>
-      <div class="p-grid links-container">
-        <!-- Grades -->
-        <div class="p-col-12 p-md-3">
-          <button pButton icon="pi pi-book" label="Grades" class="link-box" (click)="goToGrades()"></button>
-        </div>
-
-        <!-- Attendance -->
-        <div class="p-col-12 p-md-3">
-          <button pButton icon="pi pi-calendar-clock" label="Attendance" class="link-box"
-            (click)="goToAttendance()"></button>
-        </div>
-
-        <!-- Profile -->
-        <div class="p-col-12 p-md-3">
-          <button pButton icon="pi pi-user" label="Profile" class="link-box" (click)="goToProfile()"></button>
-        </div>
-
-        <!-- Calendar -->
-        <div class="p-col-12 p-md-3">
-          <button pButton icon="pi pi-calendar" label="Calendar" class="link-box" (click)="goToCalendar()"></button>
-        </div>
-      </div>
-    </nav>
+  <!-- Results Table -->
+  <div class="p-grid">
+    <div class="p-col-12">
+      <p-panel header="Results">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>Subject</th>
+              <th>Score</th>
+              <th>Grade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Mathematics</td>
+              <td>85</td>
+              <td>A</td>
+            </tr>
+            <tr>
+              <td>Science</td>
+              <td>78</td>
+              <td>B+</td>
+            </tr>
+            <!-- Add more rows dynamically -->
+          </tbody>
+        </table>
+      </p-panel>
+    </div>
   </div>
+</div>
