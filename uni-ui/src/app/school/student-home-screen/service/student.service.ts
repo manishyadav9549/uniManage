@@ -16,4 +16,14 @@ export class StudentService {
     return this.http.get(url);
     }
 
+    private role: 'admin' | 'student' = 'admin'; // Change to 'student' for testing the student view
+
+  setRole(role: 'admin' | 'student') {
+    this.role = role;
+  }
+
+  getRole(): 'admin' | 'student' {
+    return this.role;
+  }
+
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
-import { UtilService } from 'src/app/commons/service/util.service';
+import { UtilService } from 'src/app/school/util/util.service';
 
 @Component({
   selector: 'app-admin-home-screen',

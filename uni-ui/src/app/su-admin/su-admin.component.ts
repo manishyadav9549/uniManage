@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { School } from './services/applicationModel';
+import { School } from './services/application.model';
 import { ApplicationService } from './services/application.service';
 import { SCHOOL_TABLE_CONFIG } from './services/school.dummy';
 import { Router } from '@angular/router';

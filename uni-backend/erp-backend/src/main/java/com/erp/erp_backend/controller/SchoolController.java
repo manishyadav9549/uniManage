@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.erp.erp_backend.dto.AddAppDto;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,10 +74,9 @@ public class SchoolController {
     private SchoolService schoolService;
 
     @PostMapping("/addApp") // To add school
-    public boolean addApplication(@RequestBody School schoolInfo){
+    public AddAppDto addApplication(@RequestBody School schoolInfo){
         System.out.println("School information: "+ schoolInfo);
-        schoolService.createSchool(schoolInfo);
-        return true;
+        return schoolService.createSchool(schoolInfo);
     }
 
     @GetMapping("/schools") // Get All Schools list
@@ -84,10 +84,10 @@ public class SchoolController {
         return schoolService.getAllSchools();
     }
 
-    @GetMapping("/school/{id}")
-    public Optional<School> getSchool(@PathVariable String school_id){
-        Optional<School> sch = schoolService.getSchool(school_id);
-        return sch;
-    }
+//    @GetMapping("/school/{id}")
+//    public Optional<School> getSchool(@PathVariable String school_id){
+//        Optional<School> sch = schoolService.getSchool(school_id);
+//        return sch;
+//    }
 }
 
