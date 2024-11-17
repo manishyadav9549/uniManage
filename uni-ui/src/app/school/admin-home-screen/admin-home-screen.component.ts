@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Chart, registerables } from 'chart.js';
 import { UtilService } from 'src/app/school/util/util.service';
 
@@ -10,7 +11,8 @@ import { UtilService } from 'src/app/school/util/util.service';
 export class AdminHomeScreenComponent implements OnInit {
   schoolName: string = 'School'
   schoolInfo: any;
-  studentMenuItems = [
+  showOptions = false;
+  menuItems = [
     {
       label: 'School',
       icon: 'pi pi-building',
@@ -28,7 +30,7 @@ export class AdminHomeScreenComponent implements OnInit {
     }
   ];
 
-  constructor(protected util: UtilService) {
+  constructor(protected util: UtilService, private router: Router) {
     Chart.register(...registerables);
   }
 
@@ -38,6 +40,44 @@ export class AdminHomeScreenComponent implements OnInit {
     console.log("School info: ", this.schoolInfo);
     this.initializeEnrollmentChart();
     this.initializePerformanceChart();
+  }
+
+  studentMenuItems = [
+    {
+      label: 'Add New Student',
+      icon: 'pi pi-plus',
+      command: () => this.addNewStudent()
+    },
+    {
+      label: 'Delete Student',
+      icon: 'pi pi-trash',
+      command: () => this.deleteStudent()
+    },
+    {
+      label: 'Edit Student',
+      icon: 'pi pi-pencil',
+      command: () => this.editStudent()
+    }
+  ];
+
+  toggleDropdown() {
+    this.showOptions = !this.showOptions;
+  }
+
+  addNewStudent() {
+    console.log('Add New Student');
+    this.router.navigate(["/newStudent"]);
+    
+  }
+
+  deleteStudent() {
+    console.log('Delete Student');
+    // Your logic here
+  }
+
+  editStudent() {
+    console.log('Edit Student');
+    // Your logic here
   }
 
   initializeEnrollmentChart() {

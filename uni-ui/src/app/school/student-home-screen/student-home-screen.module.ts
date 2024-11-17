@@ -10,8 +10,8 @@ import { SProfileComponent } from './s-profile/s-profile.component';
 
 
 const routes: Routes = [
-  {path: '', component: StudentHomeScreenComponent, canActivate: [AuthGuard] },
-  {path: 's-profile', component: SProfileComponent}
+  {path: '', component: StudentHomeScreenComponent, canActivate: [AuthGuard] }
+  // {path: 's-profile', component: SProfileComponent}
 ]
 
 

@@ -54,9 +54,11 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public ArrayList getUser(String username, String password){
+    public ArrayList getUser(JSONObject loginData){
         ArrayList result = new ArrayList<>();
         try{
+            String username = loginData.getString("username");
+            String password = loginData.getString("password");
             User user = findByPhone(username);
             System.out.println("before query");
             System.out.println("user: "+ user);

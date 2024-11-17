@@ -14,12 +14,13 @@
 </p-toolbar> -->
 <div class="admin-home-container">
   <h2>{{ schoolName }} Dashboard</h2>
-  
+
   <!-- Feature Button Grid -->
   <div class="feature-grid">
     <div class="feature-card">
-      <p-menu #entityMenu [popup]="true" [model]="studentMenuItems"></p-menu>
-      <p-button label="Manage Students" icon="pi pi-users" class="p-button-info" ></p-button>
+      <p-button label="Manage Students" icon="pi pi-users" class="p-button-info" (click)="toggleDropdown()"></p-button>
+      <p-panelMenu *ngIf="showOptions" [model]="studentMenuItems" styleClass="student-options-menu">
+      </p-panelMenu>
     </div>
     <div class="feature-card">
       <p-button label="Manage Teachers" icon="pi pi-id-card" class="p-button-info"></p-button>
@@ -42,17 +43,20 @@
     <div class="feature-card">
       <p-button label="SMS Broadcast" icon="pi pi-envelope" class="p-button-info"></p-button>
     </div>
+    <div class="feature-card">
+      <p-button label="Add Admin" icon="pi pi-cog" class="p-button-info"></p-button>
+    </div>
   </div>
-  
+
   <!-- Dashboard Charts and Info Panels -->
   <div class="dashboard-info-section">
-    
+
     <!-- Enrollment Stats Chart -->
     <div class="chart-container">
       <h3>Enrollment Trends</h3>
       <canvas id="enrollmentChart"></canvas>
     </div>
-    
+
     <!-- Performance Overview -->
     <div class="chart-container">
       <h3>Performance Overview</h3>

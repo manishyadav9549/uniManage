@@ -13,6 +13,8 @@ import { StudentHomeScreenModule } from './school/student-home-screen/student-ho
 import { AdminHomeScreenModule } from './school/admin-home-screen/admin-home-screen.module';
 import { SuAdminModule } from './su-admin/su-admin.module';
 import { HospitalHomeScreenModule } from './hospital/hospital-home-screen/hospital-home-screen.module';
+import { DropdownModule } from 'primeng/dropdown';
+import { CalendarModule } from 'primeng/calendar';
 @NgModule({
   declarations: [AppComponent,
     LoaderrComponent  ],
@@ -28,7 +30,9 @@ import { HospitalHomeScreenModule } from './hospital/hospital-home-screen/hospit
     HospitalHomeScreenModule,
     MessageModule,
     ToastModule,
-    HttpClientModule
+    HttpClientModule,
+    DropdownModule,
+    CalendarModule
   ],
   providers: [MessageService,ConfirmationService],
   bootstrap: [AppComponent]

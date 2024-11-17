@@ -32,16 +32,13 @@ public class SchoolController {
     @PostMapping("/user") // Login RestCall 
     public ArrayList<User> signIn(@RequestBody String loginData) throws JSONException {
         JSONObject jsonObject = new JSONObject(loginData);
-        System.out.println("loginData"+ loginData);
-        String username = jsonObject.getString("username");
-        String password = jsonObject.getString("password");
-        System.out.println("Manish uswe"+ username+ ", pass:"+ password);
-        ArrayList user = userService.getUser(username, password);
+        ArrayList user = userService.getUser(jsonObject);
         return user;
     }
 
-    @PostMapping("/addUser") // To add a school
+    @PostMapping("/addUser") // To add a user
     public ResponseEntity<User> createUser(@RequestBody User user) {
+        System.out.println("User: "+ user);
         User newUser = userService.createUser(user);
         return ResponseEntity.ok(newUser);
     }

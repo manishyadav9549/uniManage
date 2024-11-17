@@ -1,0 +1,69 @@
+<div class="form-container">
+    <h2>Student Details</h2>
+    <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+        <!-- Class ID -->
+        <div class="field">
+            <label for="class_id">Class ID</label>
+            <input id="class_id" type="number" pInputText formControlName="class_id" />
+        </div>
+
+        <!-- Name -->
+        <div class="field">
+            <label for="name">Name</label>
+            <input id="name" type="text" pInputText formControlName="name" />
+        </div>
+
+        <!-- Roll Number -->
+        <div class="field">
+            <label for="roll_number">Roll Number</label>
+            <input id="roll_number" type="text" pInputText formControlName="roll_number" />
+        </div>
+
+        <!-- Date of Birth -->
+        <div class="field">
+            <label for="date_of_birth">Date of Birth</label>
+            <p-calendar id="date_of_birth" formControlName="date_of_birth" dateFormat="yy-mm-dd"></p-calendar>
+        </div>
+
+        <!-- Gender -->
+        <div class="field">
+            <label for="gender">Gender</label>
+            <p-dropdown id="gender" [options]="genderOptions" formControlName="gender"
+                placeholder="Select Gender"></p-dropdown>
+        </div>
+
+        <!-- Email -->
+        <div class="field">
+            <label for="email">Email</label>
+            <input id="email" type="email" pInputText formControlName="email" />
+        </div>
+
+        <!-- Address (Full Width) -->
+        <div class="field full-width">
+            <label for="address">Address</label>
+            <textarea id="address" pInputTextarea formControlName="address" rows="3"></textarea>
+        </div>
+
+        <!-- Phone -->
+        <div class="field">
+            <label for="phone">Phone</label>
+            <input id="phone" type="text" pInputText formControlName="phone" />
+        </div>
+
+        <!-- Guardian Name -->
+        <div class="field">
+            <label for="guardian_name">Guardian Name</label>
+            <input id="guardian_name" type="text" pInputText formControlName="guardian_name" />
+        </div>
+
+        <!-- Submit Button -->
+        <!-- Submit and Cancel Buttons -->
+        <div class="submit-btn">
+            <button pButton type="submit" label="Submit" class="p-button-success mr-2" [disabled]="studentForm.invalid">
+            </button>
+            <button pButton type="button" label="Cancel" class="p-button-secondary" (click)="goBack()">
+            </button>
+        </div>
+
+    </form>
+</div>

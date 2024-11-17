@@ -4,7 +4,6 @@ import { ToastModule } from 'primeng/toast';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login.component';
 import { TableModule } from 'primeng/table';
-import { AppModule } from '../app.module';
 
 
 @NgModule({
@@ -13,7 +12,6 @@ import { AppModule } from '../app.module';
     CommonModule,
     ToastModule,
     FormsModule,
-    // AppModule,
     TableModule,
   ]
 })
