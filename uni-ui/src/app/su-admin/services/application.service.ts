@@ -21,4 +21,9 @@ export class ApplicationService {
     let url = this.basePath + '/uniManage/schools'
     return this.http.get(url);
   }
+
+  deleteApp(): Observable<any> {
+    let url = this.basePath + '/uniManage/schools'
+    return this.http.delete(url)
+  }
 }

@@ -7,6 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'src/app/auth.guard';
 import { MenuModule } from 'primeng/menu';
 import { SProfileComponent } from './s-profile/s-profile.component';
+import { TableModule } from 'primeng/table';
 
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
     PanelModule,
     CommonModule,
     MenuModule,
+    TableModule,
     RouterModule.forChild(routes)
   ]
 })

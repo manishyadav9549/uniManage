@@ -81,10 +81,10 @@ public class SchoolController {
         return schoolService.getAllSchools();
     }
 
-//    @GetMapping("/school/{id}")
-//    public Optional<School> getSchool(@PathVariable String school_id){
-//        Optional<School> sch = schoolService.getSchool(school_id);
-//        return sch;
-//    }
+    @DeleteMapping("school/{schoolid}") // To delete any school
+    public ResponseEntity<Void> deleteUser(@PathVariable String schoolID) {
+        userService.deleteUser(schoolID);
+        return ResponseEntity.noContent().build();
+    }
 }
 

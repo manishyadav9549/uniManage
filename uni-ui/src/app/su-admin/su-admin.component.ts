@@ -122,6 +122,8 @@ export class SuAdminComponent {
         this.messageService.add({ severity: 'success', summary: 'Deleted', detail: 'School deleted successfully.' });
       }
     });
+    console.log("school: ", school)
+    // this.
   }
 
   viewDetails(school: School) {

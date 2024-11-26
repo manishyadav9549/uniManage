@@ -1,5 +1,19 @@
+<p-toast></p-toast>
 <div class="form-container">
     <h2>Student Details</h2>
+
+    <div class="field toggle-switch">
+        <label for="add-siblings" class="switch-label">Add Siblings</label>
+        <div class="custom-switch">
+          <p-inputSwitch [(ngModel)]="addSiblings" inputId="addSiblingsSwitch"></p-inputSwitch>
+        </div>
+      </div>
+      
+      <div class="field sibling-input" *ngIf="addSiblings">
+        <label for="siblingId">Sibling ID</label>
+        <input id="siblingId" type="text" pInputText [(ngModel)]="siblingId" />
+      </div>
+   
     <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
         <!-- Class ID -->
         <div class="field">
@@ -35,8 +49,13 @@
         <!-- Email -->
         <div class="field">
             <label for="email">Email</label>
-            <input id="email" type="email" pInputText formControlName="email" />
+            <input id="email" type="email" pInputText formControlName="email" [disabled]="addSiblings"/>
         </div>
+
+        <div *ngIf="studentForm.get('email')?.invalid && studentForm.get('email')?.touched">
+            <small class="p-error">Invalid email format</small>
+        </div>
+        
 
         <!-- Address (Full Width) -->
         <div class="field full-width">
@@ -47,7 +66,7 @@
         <!-- Phone -->
         <div class="field">
             <label for="phone">Phone</label>
-            <input id="phone" type="text" pInputText formControlName="phone" />
+            <input id="phone" type="text" pInputText formControlName="phone" [disabled]="addSiblings"/>
         </div>
 
         <!-- Guardian Name -->
@@ -59,7 +78,7 @@
         <!-- Submit Button -->
         <!-- Submit and Cancel Buttons -->
         <div class="submit-btn">
-            <button pButton type="submit" label="Submit" class="p-button-success mr-2" [disabled]="studentForm.invalid">
+            <button pButton type="submit" label="Submit" class="p-button-success mr-2">
             </button>
             <button pButton type="button" label="Cancel" class="p-button-secondary" (click)="goBack()">
             </button>

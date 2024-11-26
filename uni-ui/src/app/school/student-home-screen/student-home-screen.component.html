@@ -61,47 +61,35 @@
     </div>
   </div>
 
-<!-- Results Table -->
   <div class="p-grid">
     <div class="p-col-12">
       <p-panel header="Results">
-        <table class="results-table">
-          <thead>
+        <p-table [value]="results" responsiveLayout="scroll" >
+          
+          <!-- Table Header -->
+          <ng-template pTemplate="header">
             <tr>
               <th>Subject</th>
               <th>Score</th>
-              <th>Grade</th>
-              <th>Grade</th>
-              <th>Grade</th>
-
+              <th>Grade (Term 1)</th>
+              <th>Grade (Term 2)</th>
+              <th>Grade (Term 3)</th>
             </tr>
-          </thead>
-          <tbody>
+          </ng-template>
+  
+          <!-- Table Body -->
+          <ng-template pTemplate="body" let-result>
             <tr>
-              <td>Mathematics</td>
-              <td>85</td>
-              <td>A</td>
-              <td>A</td>
-              <td>A</td>
+              <td>{{ result.subject }}</td>
+              <td>{{ result.score }}</td>
+              <td>{{ result.gradeTerm1 }}</td>
+              <td>{{ result.gradeTerm2 }}</td>
+              <td>{{ result.gradeTerm3 }}</td>
             </tr>
-            <tr>
-              <td>Science</td>
-              <td>78</td>
-              <td>A</td>
-              <td>A</td>
-              <td>B+</td>
-            </tr>
-            <tr>
-              <td>SST</td>
-              <td>82</td>
-              <td>A</td>
-              <td>A</td>
-              <td>A</td>
-            </tr>
-            <!-- Add more rows dynamically -->
-          </tbody>
-        </table>
+          </ng-template>
+        </p-table>
       </p-panel>
     </div>
   </div>
+  
 </div>

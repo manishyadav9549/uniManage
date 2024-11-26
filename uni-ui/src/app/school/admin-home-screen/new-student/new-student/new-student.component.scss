@@ -9,7 +9,7 @@ $form-padding: 4vw;
 $form-radius: 0.5rem;
 
 $form-max-width: 80vw;
-$form-gap: 2vw;
+$form-gap: 1vw;
 
 .form-container {
   max-width: $form-max-width;
@@ -61,6 +61,26 @@ $form-gap: 2vw;
           box-shadow: 0 0 0.4rem rgba($form-focus-border-color, 0.5);
         }
       }
+
+      // Custom Toggle Switch
+      &.toggle-switch {
+        flex-direction: row; /* Align items horizontally */
+        align-items: center;
+        gap: 1rem; /* Spacing between label and switch */
+
+        .switch-label {
+          flex: 0 0 auto; /* Ensure label maintains its size */
+        }
+
+        .custom-switch {
+          flex: 0 0 auto; /* Ensure the switch doesn't stretch */
+        }
+      }
+
+      &.sibling-input {
+        flex-direction: column; /* Default column layout for sibling input */
+        margin-left: 2rem; /* Slight indentation for clarity */
+      }
     }
 
     .full-width {
@@ -85,7 +105,7 @@ $form-gap: 2vw;
         transition: background-color 0.3s ease;
 
         &.p-button-success {
-          background-color: #28a745;
+          background-color: #00de34;
           color: #fff;
 
           &:hover {

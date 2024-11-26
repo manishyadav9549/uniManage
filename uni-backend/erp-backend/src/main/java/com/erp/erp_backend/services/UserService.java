@@ -1,7 +1,6 @@
 package com.erp.erp_backend.services;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,6 +45,10 @@ public class UserService {
 
     // Delete user by ID
     public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
+    // Delete user by ID
+    public void deleteUser(String id) {
         userRepository.deleteById(id);
     }
 

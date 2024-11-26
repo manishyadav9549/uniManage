@@ -36,6 +36,12 @@ export class StudentHomeScreenComponent implements OnInit {
   }
   studentInfo: any;
   studentData: any;
+  results = [
+    { subject: 'Mathematics', score: 85, gradeTerm1: 'A', gradeTerm2: 'A', gradeTerm3: 'A' },
+    { subject: 'Science', score: 78, gradeTerm1: 'A', gradeTerm2: 'A', gradeTerm3: 'B+' },
+    { subject: 'SST', score: 82, gradeTerm1: 'A', gradeTerm2: 'A', gradeTerm3: 'A' }
+    // Add more objects dynamically
+  ];
 
   constructor(private router: Router, private http: StudentService, private util: UtilService) {
     this.menuItems = [

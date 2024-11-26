@@ -45,18 +45,19 @@ export class LoginComponent implements OnInit {
       next:(response) =>{
         this.data = response
         this.isLoading = false;
-        if (this.data[0] === "User not found"){
-          this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Incorrect Username.'});
+        if (typeof(this.data[0]) == "string" && this.data[0].startsWith('Error')){
+          let errMsg = [];
+          errMsg = this.data[0].split(":");
+          if (errMsg.length == 2)
+            this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': errMsg[2]});
+          else
+            this.messageService.add({'severity': 'warn', 'summary': 'Error', 'detail': 'Something bad happened. Please try again after some time'});
           return;
         }
         else if(this.data[0] === "Password didn't matched"){
           this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Incorrect Password.'});
           return;
 
-        }
-        else if (typeof(this.data[0]) == "string" && this.data[0].startsWith('Error')){
-          this.messageService.add({'severity': 'warn', 'summary': 'Error', 'detail': 'Something bad happened. Please try again after some time'});
-          return;
         }
         switch (this.data[0]["role"]) {
           case 'teacher':
