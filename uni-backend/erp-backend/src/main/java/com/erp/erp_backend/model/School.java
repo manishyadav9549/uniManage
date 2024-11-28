@@ -23,7 +23,7 @@ public class School {
     @Column(length = 255, nullable = false)
     private String name;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(length = 255)
     private String address;
 
     @Column(length = 100, nullable = false)

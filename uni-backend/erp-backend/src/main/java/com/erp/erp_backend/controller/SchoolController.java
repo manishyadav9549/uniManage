@@ -1,9 +1,11 @@
 package com.erp.erp_backend.controller;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import com.erp.erp_backend.dto.AddAppDto;
+import com.erp.erp_backend.dto.AddStudent;
+import com.erp.erp_backend.model.Student;
+import com.erp.erp_backend.services.StudentService;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,7 @@ public class SchoolController {
 
     @Autowired
     private UserService userService;
+
 
     @PostMapping("/user") // Login RestCall 
     public ArrayList<User> signIn(@RequestBody String loginData) throws JSONException {
@@ -87,6 +90,14 @@ public class SchoolController {
         return schoolService.getSchool(schoolID)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @Autowired
+    private StudentService studentService;
+
+    @PostMapping("/addStudent")
+    public AddStudent addStudent(@RequestBody Student studentInfo){
+        return studentService.addNewStd(studentInfo);
     }
 }
 
