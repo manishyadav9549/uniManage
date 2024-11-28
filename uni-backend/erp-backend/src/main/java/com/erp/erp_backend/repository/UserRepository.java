@@ -10,5 +10,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     // This method finds a User by their username (String)
      Optional<User> findByPhone(String phone);
 
-    void deleteById(String id);
+//    void deleteById(String id);
 }

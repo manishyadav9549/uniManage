@@ -81,10 +81,12 @@ public class SchoolController {
         return schoolService.getAllSchools();
     }
 
-    @DeleteMapping("school/{schoolid}") // To delete any school
-    public ResponseEntity<Void> deleteUser(@PathVariable String schoolID) {
-        userService.deleteUser(schoolID);
-        return ResponseEntity.noContent().build();
+    @PostMapping("/school") // To get individual school data
+    public ResponseEntity<School> getSchool(@RequestBody String schoolID) {
+        System.out.println("Manish schoolID: "+ schoolID);
+        return schoolService.getSchool(schoolID)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }
 

@@ -47,10 +47,10 @@ public class UserService {
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
-    // Delete user by ID
-    public void deleteUser(String id) {
-        userRepository.deleteById(id);
-    }
+//    // Delete user by ID
+//    public void deleteUser(String id) {
+//        userRepository.deleteById(id);
+//    }
 
     // Get all users
     public List<User> getAllUsers() {

@@ -11,9 +11,8 @@ export class StudentService {
   constructor(private http: HttpClient) { }
 
   getSchool(id: string): Observable<any> {
-    let url = this.basePath + '/uniManage/student/S2005SLM1655'; 
-    console.log(url);
-    return this.http.get(url);
+    let url = this.basePath + '/uniManage/school'; 
+    return this.http.post(url,id);
     }
 
     private role: 'admin' | 'student' = 'admin'; // Change to 'student' for testing the student view

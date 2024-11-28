@@ -10,14 +10,13 @@ export class SProfileComponent implements OnInit {
   student: Student = {
     roll_number: '1',
     name: 'John Doe',
-    // age: 16,
     grade: '10th Grade',
     email: 'john.doe@example.com',
     phone: '+1234567890',
     address: '123 Elm Street, Springfield',
     guardianName: 'Jane Doe',
     guardianContact: '+0987654321',
-    photoUrl: "assets/logos/WALogo.jpge",
+    photoUrl: "/home/team/Desktop/uniManage/uni-ui/src/assets/logos/WALogo.jpg",
     class_id: 0,
     gender: '',
     siblings_id: '',
@@ -27,6 +26,7 @@ export class SProfileComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.student.photoUrl = '..assets/logos/WALogo.jpg'
   }
 
 }

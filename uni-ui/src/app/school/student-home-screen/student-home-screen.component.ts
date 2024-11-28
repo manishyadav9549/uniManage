@@ -34,7 +34,7 @@ export class StudentHomeScreenComponent implements OnInit {
   toggleMenu(event: Event) {
     this.menu.toggle(event);
   }
-  studentInfo: any;
+  studentInfo: any = [];
   studentData: any;
   results = [
     { subject: 'Mathematics', score: 85, gradeTerm1: 'A', gradeTerm2: 'A', gradeTerm3: 'A' },
@@ -59,18 +59,18 @@ export class StudentHomeScreenComponent implements OnInit {
     this.currentDate = this.util.getFormattedDate();
     this.studentInfo = history.state[0];
     console.log("studentInfo", this.studentInfo)
-    // this.http.getSchool(this.studentInfo.school_id).subscribe({
-    //   next:(response) =>{
-    //     this.studentData = response;
-    //     console.log("this.studentData: ", this.studentData)
-    //   },
-    //   error: (error) => {
-    //     console.error('Error fetching data: ', error);
-    //   },
-    //   complete: () => {
-    //     console.log('Data stream completed');
-    //   }
-    // })
+    this.http.getSchool(this.studentInfo.school_id).subscribe({
+      next:(response) =>{
+        this.studentData = response;
+        console.log("this.studentData: ", this.studentData)
+      },
+      error: (error) => {
+        console.error('Error fetching data: ', error);
+      },
+      complete: () => {
+        console.log('Data stream completed');
+      }
+    })
     this.schoolName = "Woodland Academy"
 
   }

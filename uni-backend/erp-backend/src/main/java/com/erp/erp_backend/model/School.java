@@ -17,7 +17,7 @@ public class School {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Sid;
 
-    @Column(length = 50)
+    @Column(name = "id", length = 50)
     private String id;
 
     @Column(length = 255, nullable = false)

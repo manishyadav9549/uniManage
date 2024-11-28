@@ -35,6 +35,9 @@ public class SchoolService {
     }
 
     public Optional<School> getSchool(String school_id){
-        return schoolRepository.findById(school_id);
-    }
+        System.out.println("Manish was in service file: "+school_id);
+        Optional<School> sch= schoolRepository.findById(school_id);
+        System.out.printf("Manish sch: "+ sch);
+        return sch;
+        }
 }
