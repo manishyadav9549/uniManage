@@ -39,4 +39,8 @@ export class UtilService {
     // Combine all parts
     return `${formattedDay} ${month} ${year}`;
   }
+
+  base64Encoder(value: string){
+    return btoa(value);
+  }
 }

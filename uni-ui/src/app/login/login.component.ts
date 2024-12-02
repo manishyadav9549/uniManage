@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { LoginService } from './services/login.service';
+import { UtilService } from '../school/util/util.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   showPassword: boolean = false;
   isLoading : boolean = false;
   data: any[] = [];
-  constructor( private router: Router, private loginService: LoginService, private messageService: MessageService) {
+  constructor( private router: Router, private loginService: LoginService, private messageService: MessageService, private util: UtilService) {
   }
 
   ngOnInit(): void {}
@@ -27,19 +28,19 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     this.username = username;
     this.password = password;
-    if (this.username == '9549353900' && this.password == 'manish'){
-      // this.router.navigate(['/school-admin']);
-      // this.router.navigate(['/su-admin']);
-      this.router.navigate(['/student']);
-      return;
-    }
+    // if (this.username == '9549353900' && this.password == 'manish'){
+    //   this.router.navigate(['/school-admin']);
+    //   this.router.navigate(['/su-admin']);
+    //   this.router.navigate(['/student']);
+    //   return;
+    // }
     if (this.username.trim() == '' || this.password.trim() == ''){
       this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Please Enter Username and Password.'});
       return;
     }
     let loginData = {
-      'username': this.username,
-      'password': this.password
+      'username': this.util.base64Encoder(username).trim(),
+      'password': this.util.base64Encoder(password).trim()
     }
     this.loginService.validateUser(loginData).subscribe({
       next:(response) =>{

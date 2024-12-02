@@ -4,6 +4,7 @@ import { School } from './services/application.model';
 import { ApplicationService } from './services/application.service';
 import { SCHOOL_TABLE_CONFIG } from './services/school.dummy';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-su-admin',
@@ -23,6 +24,7 @@ export class SuAdminComponent {
   sortOrder = 1; // 1 for ascending, -1 for descending
   sortField: string | null = null;
   globalFilterFields: string[] = [];
+  subscription: Subscription | null = null;
 
   constructor(private messageService: MessageService, private appService: ApplicationService, private confirmationService: ConfirmationService, private router: Router) {
     this.schoolIntialize();
@@ -73,7 +75,7 @@ export class SuAdminComponent {
       value['applicationType'] = this.entityType;
       let firstName = value['name'].split(" ");
       value['id'] = 'S' + value['establishedYear'] + firstName[0] + Math.floor(1000 + Math.random() * 9000);
-      this.appService.addApplication(value).subscribe({
+      this.subscription = this.appService.addApplication(value).subscribe({
         next: (response) => {
           this.data = response
         },
@@ -86,7 +88,6 @@ export class SuAdminComponent {
       });
       // this.schools.push({ ...this.school }); 
       form.reset();
-      this.getSchools();
       this.setType("");
     }
   }
@@ -241,6 +242,13 @@ export class SuAdminComponent {
       website_url: '',
       last_updated: new Date() // Default or initial value
     };
+  }
+
+  ngOnDestroy(){
+    if(this.subscription){
+      this.subscription.unsubscribe();
+    } 
+
   }
 
 }

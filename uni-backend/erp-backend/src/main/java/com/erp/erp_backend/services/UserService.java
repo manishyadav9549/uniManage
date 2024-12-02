@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.erp.erp_backend.dto.UserResponseDTO;
 import com.erp.erp_backend.model.User;
 import com.erp.erp_backend.repository.UserRepository;
 
@@ -57,16 +57,18 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public ArrayList getUser(JSONObject loginData){
+    public ArrayList getUser(String username, String password){
         ArrayList result = new ArrayList<>();
         try{
-            String username = loginData.getString("username");
-            String password = loginData.getString("password");
             User user = findByPhone(username);
-            System.out.println("before query");
             System.out.println("user: "+ user);
             if (user.getPassword().equals(password)){
-                result.add(user);
+                UserResponseDTO resObj = new UserResponseDTO();
+                resObj.setPhone(String.valueOf(user.getPhone()));
+                resObj.setRole(String.valueOf(user.getRole()));
+                resObj.setSchool_id( String.valueOf(user.getSchool_id()));
+                resObj.setEmail(String.valueOf(user.getEmail()));
+                result.add(resObj);
                 return result;
             }
             else{

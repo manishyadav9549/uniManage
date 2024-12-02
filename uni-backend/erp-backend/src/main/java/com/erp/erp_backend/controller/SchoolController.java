@@ -6,6 +6,7 @@ import com.erp.erp_backend.dto.AddAppDto;
 import com.erp.erp_backend.dto.AddStudent;
 import com.erp.erp_backend.model.Student;
 import com.erp.erp_backend.services.StudentService;
+import com.erp.erp_backend.services.Util;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +32,15 @@ public class SchoolController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private Util util;
 
     @PostMapping("/user") // Login RestCall 
     public ArrayList<User> signIn(@RequestBody String loginData) throws JSONException {
         JSONObject jsonObject = new JSONObject(loginData);
-        ArrayList user = userService.getUser(jsonObject);
+        util.base64Decoder(jsonObject.getString("username"));
+        util.base64Decoder(jsonObject.getString("password"));
+        ArrayList user = userService.getUser(util.base64Decoder(jsonObject.getString("username")),util.base64Decoder(jsonObject.getString("password")));
         return user;
     }
 
@@ -70,6 +75,7 @@ public class SchoolController {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
+
     @Autowired
     private SchoolService schoolService;
 
@@ -92,12 +98,17 @@ public class SchoolController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+
     @Autowired
     private StudentService studentService;
 
     @PostMapping("/addStudent")
     public AddStudent addStudent(@RequestBody Student studentInfo){
+        System.out.println("Manish studentInfo: "+ studentInfo);
         return studentService.addNewStd(studentInfo);
     }
+
+//    @GetMapping("/student")
+//    public Student getStudent(@)
 }
 
