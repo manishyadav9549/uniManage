@@ -1,28 +1,93 @@
-.home-screen {
-    .card {
-      text-align: center;
-      padding: 1.5rem;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      margin-bottom: 1rem;
-  
-      .icon {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-      }
-  
-      h2 {
-        margin-top: 0.5rem;
-        color: #333;
-      }
-  
-      p {
-        color: #666;
-        margin: 1rem 0;
-      }
-  
-      button {
-        margin-top: 1rem;
-      }
-    }
-  }
-  
+.dashboard-header {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-button {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sortable-header {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pi-arrow-down, .pi-arrow-up {
+  margin-left: 5px;
+  font-size: 12px;
+}
+
+.p-sortable-column-icon {
+  display: none; /* Hide the default sort icons */
+}
+
+.dashboard-header h1 {
+  font-size: 24px;
+  margin: 0;
+  font-weight: bold;
+}
+/* Fix the width of each column */
+.p-datatable-sm th,
+.p-datatable-sm td {
+  width: 150px; /* Set a fixed width for each column */
+  text-align: left;
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add ellipsis for overflow text */
+}
+
+/* Maintain consistent row height */
+.p-datatable-sm tbody tr {
+  height: 40px; /* Set a fixed height for rows */
+}
+
+/* Style table inputs to match the cell size */
+.table-input {
+  height: 30px; /* Match input height with the row */
+  padding: 0 4px;
+  font-size: 14px;
+  width: 100%; /* Ensure input takes up the full cell width */
+  border: 1px solid #dcdcdc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  text-align: left; /* Align text to the left for inputs */
+}
+
+/* Ensure table cells align properly */
+.table-cell {
+  vertical-align: middle;
+  padding: 0 8px;
+  text-align: left; /* Keep content aligned to the left */
+}
+
+/* Style the action buttons with fixed size */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Ensure alignment within row */
+}
+
+/* Compact action buttons */
+.p-button-rounded {
+  padding: 4px !important;
+  font-size: 14px;
+  height: 30px; /* Match row height */
+  width: 30px; /* Square button for icons */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Prevent table from resizing horizontally */
+.p-datatable-wrapper {
+  overflow-x: auto; /* Enable horizontal scrolling if content exceeds table width */
+}
