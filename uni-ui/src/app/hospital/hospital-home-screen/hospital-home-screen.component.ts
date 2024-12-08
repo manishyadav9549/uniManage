@@ -1,17 +1,16 @@
-import { style } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
 
 interface Product {
-  id: number;
+  id: string;
   product: string;
   category: string;
-  fullPrice: number;
-  salePrice: number;
+  fullPrice: string;
+  salePrice: string;
   availability: string;
   supplier: string;
   discount: string;
 }
-
 
 @Component({
   selector: 'app-hospital-home-screen',
@@ -21,77 +20,114 @@ interface Product {
 export class HospitalHomeScreenComponent implements OnInit {
 
   products: Product[] = [
-    { id: 1, product: 'Post-it', category: 'Household', fullPrice: 99.28, salePrice: 31.56, availability: 'true', supplier: '3M', discount: '32%' },
-    { id: 2, product: 'Scotch-brite', category: 'Household', fullPrice: 49.35, salePrice: 42.54, availability: 'true', supplier: '3M', discount: '86%' },
-    { id: 3, product: 'Command', category: 'Household', fullPrice: 44.3, salePrice: 36.36, availability: 'true', supplier: '3M', discount: '82%' },
+    { id: '1', product: 'Post-it', category: 'First Aid', fullPrice: '99.28', salePrice: '31.56', availability: 'Yes', supplier: 'Tata Chemicals', discount: '32%' },
+    { id: '2', product: 'Scotch-brite', category: 'Household', fullPrice: '49.35', salePrice: '42.54', availability: 'Yes', supplier: 'Reliance', discount: '25%' },
+    { id: '3', product: 'Command', category: 'Household', fullPrice: '44.3', salePrice: '36.36', availability: 'No', supplier: 'Adani Healthcare', discount: '35%' },
   ];
   columns = [
-    { field: 'id', header: 'Id', width: '50px' },
-    { field: 'product', header: 'Product', width: '150px' },
-    { field: 'category', header: 'Category', width: '150px' },
-    { field: 'fullPrice', header: 'FullPrice', width: '120px' },
-    { field: 'salePrice', header: 'SalePrice', width: '120px' },
-    { field: 'availability', header: 'Availability', width: '120px' },
-    { field: 'supplier', header: 'Supplier', width: '120px' },
-    { field: 'discount', header: 'Discount', width: '100px' },
+    { field: 'id', header: 'Id'},
+    { field: 'product', header: 'Product' },
+    { field: 'category', header: 'Category' },
+    { field: 'fullPrice', header: 'FullPrice'},
+    { field: 'salePrice', header: 'SalePrice' },
+    { field: 'availability', header: 'Availability' },
+    { field: 'supplier', header: 'Supplier' },
+    { field: 'discount', header: 'Discount'},
   ];
-
-  sortField: string = '';
-  sortOrder: string = '';
-
-  isSorted(field: string, order: string): boolean {
-    return this.sortField === field && this.sortOrder === order;
-  }
-
-  onSortChange(event: any) {
-    this.sortField = event.field;
-    this.sortOrder = event.order === 1 ? 'asc' : 'desc';
-  }
-
-  // columns = [
-  //   { field: 'id', header: 'Id', width: '5%' },
-  //   { field: 'product', header: 'Product', width: '15%' },
-  //   { field: 'category', header: 'Category', width: '15%' },
-  //   { field: 'fullPrice', header: 'FullPrice', width: '12%' },
-  //   { field: 'salePrice', header: 'SalePrice', width: '12%' },
-  //   { field: 'availability', header: 'Availability', width: '12%' },
-  //   { field: 'supplier', header: 'Supplier', width: '12%' },
-  //   { field: 'discount', header: 'Discount', width: '12%' },
-  // ];
-
-
   editableRowIndex: number | null = null;
+  sortState: { field: string; order: 'asc' | 'desc' | null } = { field: '', order: null };
+
+
+  constructor(private messageService: MessageService) { }
+
+  ngOnInit(): void {
+  }
+
+
+  sortColumn(field: string) {
+    const fieldKey = field as keyof Product;
+  
+    if (this.sortState.field === fieldKey) {
+      this.sortState.order = this.sortState.order === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortState.field = fieldKey;
+      this.sortState.order = 'asc';
+    }
+    this.products.sort((a, b) => {
+      const valA = a[fieldKey];
+      const valB = b[fieldKey];
+  
+      let comparison = 0;
+      
+      if (fieldKey === 'fullPrice' || fieldKey === 'salePrice') {
+        const numValA = parseFloat(valA);
+        const numValB = parseFloat(valB);
+        comparison = numValA - numValB;
+      }
+      else if (fieldKey === 'discount') {
+        const numericValA = parseFloat(valA.replace('%', ''));
+        const numericValB = parseFloat(valB.replace('%', ''));
+        comparison = numericValA - numericValB;
+      }
+      else if (typeof valA === 'string' && typeof valB === 'string') {
+        comparison = valA.localeCompare(valB);
+      }
+      return this.sortState.order === 'asc' ? comparison : -comparison;
+    });
+  }
+  
+  
+
+  getSortIcon(field: string): 'asc' | 'desc' | null {
+    return this.sortState.field === field ? this.sortState.order : null;
+  }
+
 
   addRow() {
+    if (this.editableRowIndex != null){
+      this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Please save the current row to enable adding new row.'});
+      return;
+    }
     const newRow: Product = {
-      id: this.products.length + 1,
+      id: '',
       product: '',
       category: '',
-      fullPrice: 0,
-      salePrice: 0,
+      fullPrice: '',
+      salePrice: '',
       availability: '',
       supplier: '',
       discount: '',
     };
     this.products = [newRow, ...this.products];
-    this.editableRowIndex = 0; // Make the new row editable
+    this.editableRowIndex = 0; 
   }
 
   enableRowEdit(index: number) {
+    if (this.editableRowIndex != null){
+      this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Can not edit other since adding new row in progress.'});
+      return;
+    }
     this.editableRowIndex = index;
   }
 
   saveRowEdit(index: number) {
     const product = this.products[index];
-
-    // Check if the product has valid data
-    if (!product.product || !product.category || !product.fullPrice || !product.salePrice) {
+    if (!product.product || !product.category || !product.fullPrice || !product.salePrice || !product.id || !product.discount || !product.availability || !product.supplier) {
       alert('Please fill in all the required fields with valid data.');
       return;
     }
-
-    // Optional: further custom validations if necessary
-    this.editableRowIndex = null; // Disable editing mode
+    if (product.discount.endsWith('%') && parseFloat(product.discount.slice(0,-1)) > 100){
+      alert('Discount cannot be greater than 100%');
+      return;
+    }
+    else if(!product.discount.endsWith('%') && parseFloat(product.discount) > 100) {
+      alert('Discount cannot be greater than 100%');
+      return;
+    }
+    if (!product.discount.endsWith('%')){
+      product.discount += '%';
+    }
+    this.editableRowIndex = null;
   }
 
 
@@ -99,25 +135,16 @@ export class HospitalHomeScreenComponent implements OnInit {
     return this.editableRowIndex === index;
   }
 
-  // onFieldChange(rowIndex: number) {
-  //   const row = this.products[rowIndex];
-  //   const allFieldsFilled = Object.values(row).every(value => value !== '' && value !== null);
-
-  //   if (allFieldsFilled) {
-  //     this.editableRowIndex = null; // Stop editing once the row is complete
-  //     this.saveRowEdit(rowIndex);
-  //   }
-  // }
 
   deleteRow(index: number) {
+    if (this.editableRowIndex !== index && this.editableRowIndex != null){
+      this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Please can not delete a row since a row is in edit or addition mode. '});
+      return;
+    }
     this.products.splice(index, 1);
     if (this.editableRowIndex === index) {
       this.editableRowIndex = null;
     }
-  }
-  constructor() { }
-
-  ngOnInit(): void {
   }
 
 }

@@ -1,23 +1,30 @@
+<p-toast></p-toast>
 <div class="dashboard-header">
   <h1>Dashboard</h1>
 </div>
 <div class="header-button">
-  <button pButton label="Add Product" (click)="addRow()" class="p-button-sm p-button-primary"></button>
+  <button pButton label="Add Product" (click)="addRow()" class="p-button-primary"></button>
 </div>
 
 <p-table 
   [value]="products" 
   styleClass="p-datatable-striped p-datatable-gridlines"
   [sortMode]="'multiple'" 
-  (onSortChange)="onSortChange($event)" 
-  class="p-datatable-sm p-shadow-4">
+  class="p-datatable-sm">
   
   <ng-template pTemplate="header">
     <tr>
-      <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+      <th *ngFor="let col of columns"  (click)="sortColumn(col.field)">
         {{ col.header }}
-        <i class="pi pi-arrow-down" *ngIf="isSorted(col.field, 'desc')"></i>
-        <i class="pi pi-arrow-up" *ngIf="isSorted(col.field, 'asc')"></i>
+
+        <i 
+          class="pi"
+          [ngClass]="{
+            'pi-angle-down': getSortIcon(col.field) === 'asc' || getSortIcon(col.field) === null,
+            'pi-angle-up': getSortIcon(col.field) === 'desc'  
+          }">
+        </i>
+        
       </th>
       <th>Actions</th>
     </tr>
@@ -25,38 +32,31 @@
   
   <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
     <tr>
-      <td *ngFor="let col of columns" class="table-cell">
+      <td *ngFor="let col of columns" >
         <ng-container *ngIf="isRowEditable(rowIndex)">
-          <!-- Id: Only number -->
-          <input *ngIf="col.field === 'id'" type="number" pInputText [(ngModel)]="product[col.field]" class="table-input" required />
+          
+          <input *ngIf="col.field === 'id'" type="text" pInputText [(ngModel)]="product[col.field]" class="table-input" required NumberOnly />
   
-          <!-- Product: Only characters and spaces -->
           <input *ngIf="col.field === 'product'" type="text" pInputText [(ngModel)]="product[col.field]" class="table-input" 
-            required pattern="^[a-zA-Z\s]*$" title="Only letters and spaces allowed" />
+            OnlyCharsAndSpaces  />
   
-          <!-- Category: Only characters and spaces -->
           <input *ngIf="col.field === 'category'" type="text" pInputText [(ngModel)]="product[col.field]" class="table-input" 
-            required pattern="^[a-zA-Z\s]*$" title="Only letters and spaces allowed" />
+           OnlyCharsAndSpaces />
   
-          <!-- Full price: Number with 2 decimal precision -->
-          <input *ngIf="col.field === 'fullPrice'" type="number" pInputText [(ngModel)]="product[col.field]" class="table-input" 
-            required step="0.01" min="0" title="Enter a number with 2 decimal precision" />
+          <input *ngIf="col.field === 'fullPrice'" type="text" pInputText [(ngModel)]="product[col.field]" class="table-input" 
+          appTwoDigitDecimalNumbers  />
   
-          <!-- Sale price: Number with 2 decimal precision -->
-          <input *ngIf="col.field === 'salePrice'" type="number" pInputText [(ngModel)]="product[col.field]" class="table-input" 
-            required step="0.01" min="0" title="Enter a number with 2 decimal precision" />
+          <input *ngIf="col.field === 'salePrice'" type="text" pInputText [(ngModel)]="product[col.field]" class="table-input" 
+           appTwoDigitDecimalNumbers />
   
-          <!-- Availability: Only characters -->
           <input *ngIf="col.field === 'availability'" type="text" pInputText [(ngModel)]="product[col.field]" class="table-input" 
-            required pattern="^[a-zA-Z\s]*$" title="Only letters and spaces allowed" />
+           OnlyChars  />
   
-          <!-- Supplier: Only characters and spaces -->
           <input *ngIf="col.field === 'supplier'" type="text" pInputText [(ngModel)]="product[col.field]" class="table-input" 
-            required pattern="^[a-zA-Z\s]*$" title="Only letters and spaces allowed" />
+           OnlyCharsAndSpaces />
   
-          <!-- Discount: Number with 2 decimal precision and percentage -->
-          <input *ngIf="col.field === 'discount'" type="number" pInputText [(ngModel)]="product[col.field]" class="table-input" 
-            required step="0.01" min="0" title="Enter a number with 2 decimal precision, e.g., 25.50%" />
+          <input *ngIf="col.field === 'discount'" type="text" pInputText [(ngModel)]="product[col.field]" class="table-input" 
+           DecimalWithPercentage />
         </ng-container>
   
         <ng-container *ngIf="!isRowEditable(rowIndex)">
@@ -66,10 +66,10 @@
   
       <td class="action-buttons">
         <button *ngIf="!isRowEditable(rowIndex)" pButton icon="pi pi-pen-to-square"
-          class="p-button-square p-button-secondary" (click)="enableRowEdit(rowIndex)"></button>
+          class="p-button-secondary" (click)="enableRowEdit(rowIndex)"></button>
         <button *ngIf="isRowEditable(rowIndex)" pButton icon="pi pi-save"
-          class="p-button-square p-button-secondary" (click)="saveRowEdit(rowIndex)"></button>
-        <button pButton icon="pi pi-trash" class="p-button-square p-button-danger"
+          class="p-button-secondary" (click)="saveRowEdit(rowIndex)"></button>
+        <button pButton icon="pi pi-trash" class="p-button-danger"
           (click)="deleteRow(rowIndex)"></button>
       </td>
     </tr>
