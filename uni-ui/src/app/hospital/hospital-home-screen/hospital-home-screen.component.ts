@@ -45,6 +45,10 @@ export class HospitalHomeScreenComponent implements OnInit {
 
 
   sortColumn(field: string) {
+    if (this.editableRowIndex != null){
+      this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Please save the row to enable sorting feature.'});
+      return;
+    }
     const fieldKey = field as keyof Product;
   
     if (this.sortState.field === fieldKey) {
@@ -104,7 +108,7 @@ export class HospitalHomeScreenComponent implements OnInit {
 
   enableRowEdit(index: number) {
     if (this.editableRowIndex != null){
-      this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Can not edit other since adding new row in progress.'});
+      this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Can not edit another since a row is already in edit mode.'});
       return;
     }
     this.editableRowIndex = index;
@@ -138,7 +142,7 @@ export class HospitalHomeScreenComponent implements OnInit {
 
   deleteRow(index: number) {
     if (this.editableRowIndex !== index && this.editableRowIndex != null){
-      this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Please can not delete a row since a row is in edit or addition mode. '});
+      this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Please can not delete a row since a row is in edit mode. '});
       return;
     }
     this.products.splice(index, 1);
