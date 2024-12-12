@@ -71,13 +71,6 @@ export class LoginComponent implements OnInit {
         console.log('Data stream completed');
       }
     });
-    // setTimeout(() => {
-    //   this.isLoading = false;
-    // }, 1000);
-
-      
-    // });
-      
   }
 
   focusPassword() {
@@ -86,7 +79,7 @@ export class LoginComponent implements OnInit {
 
   forgotPassword(){
     if (this.username == '' || this.selectedUserType == '')
-      this.messageService.add({ severity: 'warn', summary: 'Warning', detail: 'Enter Username and select user type' });
+      this.messageService.add({ severity: 'warn', summary: 'Warning', detail: 'Enter Username' });
   }
 
   togglePassword() {
