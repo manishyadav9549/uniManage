@@ -50,12 +50,26 @@ export class LoginComponent implements OnInit {
       next:(response) =>{
         this.data = response
         this.isLoading = false;
-        switch (this.data.userType) {
-          case 'school':
-            if (isNaN(this.username))
-              this.router.navigate(['/school-admin']);
-            else
-             this.router.navigate(['/student']);
+        if (typeof(this.data[0]) == "string" && this.data[0].startsWith('Error')){
+          let errMsg = [];
+          errMsg = this.data[0].split(":");
+          if (errMsg.length == 3)
+            this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': errMsg[2]+ ". Invalid username"});
+          else
+            this.messageService.add({'severity': 'warn', 'summary': 'Error', 'detail': 'Something bad happened. Please try again after some time'});
+          return;
+        }
+        else if(this.data[0] === "Password didn't matched"){
+          this.messageService.add({'severity': 'warn', 'summary': 'Warning', 'detail': 'Incorrect Password.'});
+          return;
+
+        }
+        switch (this.data[0]["role"]) {
+          case 'teacher':
+            this.router.navigate(['/school-admin'],{state: this.data});
+            break;
+          case 'admin':
+            this.router.navigate(['/school-admin'],{state: this.data});
             break;
           case 'hospital':
             this.router.navigate(['/hospital']);
@@ -66,6 +80,7 @@ export class LoginComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error fetching data: ', error);
+        this.messageService.add({'severity': 'error', 'summary': 'Error', 'detail': "Server is down please login after some time."});
       },
       complete: () => {
         console.log('Data stream completed');
